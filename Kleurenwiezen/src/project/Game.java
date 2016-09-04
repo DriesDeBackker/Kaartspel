@@ -4,12 +4,48 @@ import java.util.ArrayList;
 
 public class Game {
 	
+	private boolean gameOver;
+	
 	public Game (Player host, GameRules gameRules) {
 		this.setHost(host);
 		this.addPlayer(host);
 		this.setGameRules(gameRules);
+		this.setGameNotOver();
 	}
 	
+	public void start() {
+		while (! this.isGameOver()) {
+			this.startDiscussion();
+			this.startRound();
+		}
+		/*****To Do*****/
+	}
+	
+	private void startDiscussion() {
+		boolean discussionEnded = false;
+		while (! discussionEnded) {
+			// TODO Auto-generated method stub
+		}
+
+	}
+
+	private void startRound() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean isGameOver() {
+		return this.gameOver;
+	}
+	
+	private void setGameOver() {
+		this.gameOver = true;
+	}
+	
+	private void setGameNotOver() {
+		this.gameOver = false;
+	}
+
 	private void setGameRules(GameRules gameRules) {
 		this.gameRules = gameRules;
 	}

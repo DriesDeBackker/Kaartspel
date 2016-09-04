@@ -33,19 +33,19 @@ public class Score {
 		this.scoreEntries.add(scoreEntry);
 	}
 	
-	public void updateScore(int points, RoundType roundType) {
+	public void updateScore(int points, String roundType) {
 		int lastScore = this.getLastScoreEntry();
 		int newScore = lastScore + points;
 		this.addScoreEntry(newScore);
 		this.addRoundType(roundType);
 	}
 	
-	public void addRoundType(RoundType roundType) {
+	public void addRoundType(String roundType) {
 		this.roundTypes.add(roundType);
 	}
 
 	private Player player;
 	private ArrayList<Integer> scoreEntries;
-	private ArrayList<RoundType> roundTypes;
+	private ArrayList<String> roundTypes;
 
 }

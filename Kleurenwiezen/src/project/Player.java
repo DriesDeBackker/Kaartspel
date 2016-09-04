@@ -5,6 +5,7 @@ public class Player {
 	private int number;
 	private String name;
 	private Game game;
+	private Hand hand;
 
 	public Player (String name, int number, Game game) {
 		this.setName(name);
@@ -41,6 +42,25 @@ public class Player {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+	
+	public void setHand(Hand hand) {
+		this.hand = hand;
+	}
+	
+	public Hand getHand() {
+		return this.hand;
+	}
+	
+	public void sortHand() {
+		if(this.hand != null) {
+			/******To do******/
+		}
+	}
+
+	public Card playCard() {
+		/******To do******/
+		return null;
 	}
 
 }

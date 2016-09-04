@@ -5,10 +5,24 @@ import java.util.ArrayList;
 public class Round {
 
 	
-	public Round (int roundNumber, RoundType roundType, ArrayList<Player> players) {
+	public Round (int roundNumber, ArrayList<Player> players) {
 		this.setRoundNumber(roundNumber);
-		this.setroundType(roundType);
 		this.setPlayers(players);
+	}
+	
+	public void start() {
+	}
+	
+	public void playTrick() {
+		Trick trick = new Trick();
+		Card firstCard = this.getPlayers().get(0).playCard();
+		trick.addCard(firstCard);
+		Card secondCard = this.getPlayers().get(1).playCard();
+		trick.addCard(secondCard);
+		Card thirdCard = this.getPlayers().get(2).playCard();
+		trick.addCard(thirdCard);
+		Card fourthCard = this.getPlayers().get(3).playCard();
+		trick.addCard(fourthCard);
 	}
 
 	private void setRoundNumber(int roundNumber) {
@@ -26,17 +40,8 @@ public class Round {
 	private void setPlayers(ArrayList<Player> players) {
 		this.players = players;
 	}
-
-	public RoundType getRoundType() {
-		return this.roundType;
-	}
-
-	private void setroundType(RoundType roundType) {
-		this.roundType = roundType;
-	}
 	
 	private int roundNumber;
-	private RoundType roundType;
 	private ArrayList<Player> players;
 
 }
