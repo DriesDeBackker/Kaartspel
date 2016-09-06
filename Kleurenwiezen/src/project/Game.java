@@ -1,6 +1,5 @@
 package project;
 
-import java.util.ArrayList;
 
 public class Game {
 	
@@ -14,30 +13,22 @@ public class Game {
 	}
 	
 	public void start() {
+		int roundNumber = 1;
 		while (! this.isGameOver()) {
-			this.startDiscussion();
-			this.startRound();
+			Discussion discussion = new Discussion(this, players);
+			discussion.start();
+			Round round = new Round(roundNumber, discussion.getOutcome(), this.getPlayers(), discussion.getTeams());
+			round.start();
+			roundNumber++;
 		}
-		/*****To Do*****/
-	}
-	
-	private void startDiscussion() {
-		boolean discussionEnded = false;
-		while (! discussionEnded) {
-			// TODO Auto-generated method stub
-		}
-
-	}
-
-	private void startRound() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public boolean isGameOver() {
 		return this.gameOver;
 	}
 	
+	@SuppressWarnings("unused")
 	private void setGameOver() {
 		this.gameOver = true;
 	}
@@ -49,23 +40,25 @@ public class Game {
 	private void setGameRules(GameRules gameRules) {
 		this.gameRules = gameRules;
 	}
+	
+	public GameRules getGameRules() {
+		return this.gameRules;
+	}
 
-	public ArrayList<Player> getPlayers() {
+	public Players getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(ArrayList<Player> players) {
+	public void setPlayers(Players players) {
 		this.players = players;
 	}
 	
 	public void addPlayer(Player player) {
-		if (this.getPlayers().size() < 4) {
-			this.players.add(player);
-		}
+		this.players.addPlayer(player);
 	}
 	
 	public void removePlayer(Player player) {
-		this.players.remove(player);
+		this.players.removePlayer(player);
 	}
 	
 	public Player getHost() {
@@ -77,7 +70,7 @@ public class Game {
 	}
 	
 	private Player host;
-	private ArrayList<Player> players;
+	private Players players;
 	private GameRules gameRules;
 
 }

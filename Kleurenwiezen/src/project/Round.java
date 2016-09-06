@@ -4,24 +4,37 @@ import java.util.ArrayList;
 
 public class Round {
 
-	
-	public Round (int roundNumber, ArrayList<Player> players) {
+	public Round (int roundNumber, String roundType, Players players, ArrayList<Team> teams) {
 		this.setRoundNumber(roundNumber);
+		this.setRoundType(roundType);
 		this.setPlayers(players);
+		this.setTeams(teams);
+		this.setTrickNumber(1);
+	}
+
+	private void setRoundType(String roundType) {
+		this.roundType = roundType;
 	}
 	
+	public String getRoundType() {
+		return this.roundType;
+	}
+
 	public void start() {
+		while (this.getTrickNumber() < 14) {
+			this.playTrick();
+		}
 	}
 	
 	public void playTrick() {
 		Trick trick = new Trick();
-		Card firstCard = this.getPlayers().get(0).playCard();
+		Card firstCard = this.getPlayers().getFirstPlayer().playCard();
 		trick.addCard(firstCard);
-		Card secondCard = this.getPlayers().get(1).playCard();
+		Card secondCard = this.getPlayers().getSecondPlayer().playCard();
 		trick.addCard(secondCard);
-		Card thirdCard = this.getPlayers().get(2).playCard();
+		Card thirdCard = this.getPlayers().getThirdPlayer().playCard();
 		trick.addCard(thirdCard);
-		Card fourthCard = this.getPlayers().get(3).playCard();
+		Card fourthCard = this.getPlayers().getFourthPlayer().playCard();
 		trick.addCard(fourthCard);
 	}
 
@@ -33,15 +46,38 @@ public class Round {
 		return this.roundNumber;
 	}
 	
-	public ArrayList<Player> getPlayers () {
+	public Players getPlayers () {
 		return this.players;
 	}
+	
+	public ArrayList<Player> getListOfPlayers() {
+		return this.getPlayers().getPlayers();
+	}
 
-	private void setPlayers(ArrayList<Player> players) {
+	private void setPlayers(Players players) {
 		this.players = players;
 	}
 	
+	public ArrayList<Team> getTeams() {
+		return this.teams;
+	}
+	
+	private void setTeams(ArrayList<Team> teams) {
+		this.teams = teams;
+	}
+	
+	private void setTrickNumber(int trickNumber) {
+		this.trickNumber = trickNumber;
+	}
+	
+	public int getTrickNumber() {
+		return this.trickNumber;
+	}
+	
 	private int roundNumber;
-	private ArrayList<Player> players;
+	private String roundType;
+	private Players players;
+	private ArrayList<Team> teams;
+	private int trickNumber;
 
 }

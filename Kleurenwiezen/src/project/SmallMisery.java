@@ -1,4 +1,4 @@
-SmallMisery.javapackage project;
+package project;
 
 public class SmallMisery {
 

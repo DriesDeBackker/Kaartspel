@@ -4,49 +4,93 @@ import java.util.ArrayList;
 
 public class Hand {
 	
-	/**
-	 * Initialize a hand with a certain number.
-	 * @param number
-	 */
-	public Hand (int number) {
-		this.setNumber(number);
+	public Hand (Player owner) {
+		this.setOwner(owner);
 	}
 	
-	/**
-	 * Sets the number of this hand to a given number.
-	 * 
-	 * @param 	number
-	 * 			The number this hand will be set to.
-	 */
-	private void setNumber(int number) {
-		if (1 <= number && number <= 4) {
-			this.number = number;
-		}
+	public void sortCards() {
+		// TODO Auto-generated method stub
 	}
 	
-	/**
-	 * @return the number of this hand.
-	 */
-	public int getNumber() {
-		return this.number;
+	public int countCards() {
+		return this.getCards().size();
 	}
 	
+	public int countAces() {
+		return countCardsOfRank(14);
+	}
 	
-	/**
-	 * Adds a card to this hand.
-	 * 
-	 * @param card
-	 */
+	public int countCardsOfSuit(int suit) {
+		assert(1 <= suit && suit <= 4);
+		int numberOfCards = 0;
+		for (Card card: this.getCards()) {
+			if (card.getSuit() == suit){
+				numberOfCards ++;
+			}
+		} return numberOfCards;
+	}
+	
+	public int countCardsOfRank (int rank) {
+		assert(2 <= rank && rank <= 14);
+		int numberOfCards = 0;
+		for (Card card: this.getCards()) {
+			if (card.getRank() == rank){
+				numberOfCards ++;
+			}
+		} return numberOfCards;
+	}
+	
+	public Card getCardBysuitAndRank(int rank, int suit) {
+		assert(1 <= suit && suit <= 4);
+		assert(2 <= rank && rank <= 14);
+		Card cloneCard = new Card(suit, rank);
+		Card soughtCard = null;
+		for (Card card: this.getCards()) {
+			if (cloneCard.isEqualTo(card)) {
+				soughtCard = card;
+			}
+		} return soughtCard;
+	}
+	
+	public boolean isSuitPresent(int suit) {
+		boolean suitPresent = false;
+		for (Card card: this.getCards()) {
+			if (card.getSuit() == suit) {
+				suitPresent = true;
+			}
+		} return suitPresent;
+	}
+	
+	public Card findHighestCardOfSuit(int suit) {
+		assert(1 <= suit && suit <= 4);
+		assert (this.isSuitPresent(suit));
+		Card soughtCard = null;
+		int rank = 0;
+		for (Card card: this.getCards()) {
+			if (card.getSuit() == suit && card.getRank() > rank) {
+				soughtCard = card;
+				rank = card.getRank();
+			}
+		} return soughtCard;
+	}
+	
+	public Card findLowestCardOfSuit(int suit) {
+		assert(1 <= suit && suit <= 4);
+		assert (this.isSuitPresent(suit));
+		Card soughtCard = null;
+		int rank = 15;
+		for (Card card: this.getCards()) {
+			if (card.getSuit() == suit && card.getRank() < rank) {
+				soughtCard = card;
+				rank = card.getRank();
+			}
+		} return soughtCard;
+	}
+	
 	public void addCard (Card card) {
 		this.cards.add(card);
 	}
 	
-	/**
-	 * Removes a given card from this hand.
-	 * 
-	 * @param 	card
-	 * 			The card to be removed from the hand.
-	 */
 	public void removeCard (Card card) {
 		for (Card iterationCard: this.getCards()) {
 			if (iterationCard.getRank() == card.getRank() && iterationCard.getSuit() == card.getSuit()) {
@@ -55,31 +99,36 @@ public class Hand {
 		}
 	}
 
-	/**
-	 * Sets this hand to a certain array of cards.
-	 * 
-	 * @param 	cards
-	 * 			The hand of cards that will be set.
-	 */
 	public void setCards(ArrayList<Card> cards) {
 		this.cards = cards;
 	}
 	
-	/**
-	 * @return the cards of this hand.
-	 */
 	public ArrayList<Card> getCards() {
 		return cards;
 	}
 	
-	/**
-	 * Variable registering the number of this hand.
-	 */
-	private int number;
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen() {
+		this.open = true;
+	}
 	
-	/**
-	 * Variable registering the different cards in the hand.
-	 */
+	public void setClosed() {
+		this.open = false;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+
 	private ArrayList<Card> cards;
+	private Player owner;
+	private boolean open;
 
 }

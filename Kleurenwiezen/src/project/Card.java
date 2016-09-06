@@ -7,10 +7,10 @@ public class Card {
 	 * Initialize a card with a given suit, rank and owner.
 	 * 
 	 * @param 	suit
-	 * 		   	The suit of this card. This can be Hearts, Diamonds, Clubs or Spades.
+	 * 		   	The suit of this card. This can be 1 (Hearts), 2 (Diamonds), 3 (Clubs), or 4 (Spades).
 	 * 
 	 * @param 	rank
-	 * 			The rank of the card. This can be Ace, King, Queen, Jack, 10, ... , 2.
+	 * 			The rank of the card. This can be 2, ..... , 12, 13, 14. An ace is 14, a king is thirteen.
 	 * 
 	 * @param   owner
 	 * 			The owner of this card. This is one of the players in the game, or null (the deck).
@@ -58,6 +58,10 @@ public class Card {
 			isEqual = true;
 		}
 		return isEqual;
+	}
+	
+	public void removeOwner() {
+		this.setOwner(null);
 	}
 	
 	/**

@@ -36,7 +36,8 @@ public class GameRules {
 		this.enableCarteBlanche();
 		this.enableFullPass();
 		this.enableTrumpFirstOpenTrullAce();
-		this.enableImmediatelyElevenTricks();	
+		this.enableImmediatelyElevenTricks();
+		this.chooseFirstDealMethod();
 	}
 	
 	
@@ -44,6 +45,23 @@ public class GameRules {
 	/******Getters and setters for rules and their points*******/
 	/***********************************************************/
 	
+	public void chooseFirstDealMethod() {
+		this.setDealMethod(1);
+	}
+	
+	public void chooseSecondDealMethod() {
+		this.setDealMethod(2);
+	}
+	
+	public void setDealMethod(int methodNumber) {
+		assert (methodNumber <=2 && methodNumber > 0);
+		this.dealMethod = methodNumber;
+	}
+	
+	public int getDealMethod() {
+		return dealMethod;
+	}
+
 	/***********Small Misery**********/
 	public void enableSmallMisery() {
 		this.smallMisery = true;
@@ -58,6 +76,7 @@ public class GameRules {
 		return this.smallMiseryPoints;
 	}
 	public void setSmallMiseryPoints(int points) {
+		assert(9 <= points && points <= 45 && points % 3 == 0);
 		this.smallMiseryPoints = points;
 	}
 	
@@ -75,6 +94,7 @@ public class GameRules {
 		return miseryPoints;
 	}
 	public void setMiseryPoints(int points) {
+		assert(12 <= points && points <= 45 && points % 3 == 0);
 		this.miseryPoints = points;
 	}
 	
@@ -92,6 +112,7 @@ public class GameRules {
 		return smallOpenMiseryPoints;
 	}
 	public void setSmallOpenMiseryPoints(int points) {
+		assert(9 <= points && points <= 45 && points % 3 == 0);
 		this.smallOpenMiseryPoints = points;
 	}
 	
@@ -109,6 +130,7 @@ public class GameRules {
 		return this.openMiseryPoints;
 	}
 	public void setOpenMiseryPoints(int points) {
+		assert(12 <= points && points <= 60 && points % 3 == 0);
 		this.openMiseryPoints = points;
 	}
 
@@ -127,6 +149,7 @@ public class GameRules {
 		return piccoloPoints;
 	}
 	public void setPiccoloPoints(int points) {
+		assert(9 <= points && points <= 30 && points % 3 == 0);
 		this.piccoloPoints = points;
 	}
 	
@@ -144,6 +167,7 @@ public class GameRules {
 		return piccolinoPoints;
 	}
 	public void setPiccolinoPoints(int points) {
+		assert(9 <= points && points <= 30 && points % 3 == 0);
 		this.piccolinoPoints = points;
 	}
 	
@@ -161,6 +185,7 @@ public class GameRules {
 		return abundancePoints;
 	}
 	public void setabundancePoints(int points) {
+		assert(9 <= points && points <= 45 && points % 3 == 0);
 		this.abundancePoints = points;
 	}
 	
@@ -178,6 +203,7 @@ public class GameRules {
 		return this.soloPoints;
 	}
 	public void setSoloPoints(int points) {
+		assert(15 <= points && points <= 60 && points % 3 == 0);
 		this.soloPoints = points;
 	}
 	
@@ -195,6 +221,7 @@ public class GameRules {
 		return closedTrullTricks;
 	}
 	public void setClosedTrullTricks(int tricks) {
+		assert(8 <= tricks && tricks <= 10);
 		this.closedTrullTricks = tricks;
 	}
 	
@@ -214,6 +241,7 @@ public class GameRules {
 		return openTrullTricks;
 	}
 	public void setOpenTrullTricks(int tricks) {
+		assert(7 <= tricks && tricks <= 9);
 		this.openTrullTricks = tricks;
 	}
 	
@@ -266,7 +294,8 @@ public class GameRules {
 	/********************************************/
 	/******************Variables*****************/
 	/********************************************/
-
+	private int dealMethod;
+	
 	private boolean smallMisery;
 	private int 	smallMiseryPoints;
 	private boolean misery;
@@ -295,5 +324,7 @@ public class GameRules {
 	private int		BiddingPoints;
 	private boolean	doubleScoreIfThirteenTricks;
 	private int		fullPassScoreMultiplication;
+	// TODO Auto-generated method stub
+	
 
 }
