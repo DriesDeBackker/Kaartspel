@@ -7,7 +7,7 @@ import java.util.List;
 public class Discussion {
 	
 	private Game game;
-	private List<String> options = Arrays.asList("Ask", "Piccolino", "Piccolo", "Small Misery", 
+	private static final List<String> options = Arrays.asList("Ask", "Piccolino", "Piccolo", "Small Misery", 
 			"Abundance", "Small Open Misery", "Trull", "Open Misery", "Solo","Pass");
 	private Players players;
 	private ArrayList<Team> teams;
@@ -42,7 +42,7 @@ public class Discussion {
 		for (Player player: this.players.getPlayers()) {
 			this.setCurrentPlayer(player);
 			if (player.hasTrull()) {
-				// TODO Auto-generated method stub
+				this.setOutcome("Closed Trull");
 			}
 			
 		}

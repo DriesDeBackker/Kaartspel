@@ -3,6 +3,8 @@ package project;
 public class GameRules {
 
 	public GameRules() {
+		this.chooseFirstDealMethod();
+		
 		this.enableSmallMisery();
 		this.setSmallMiseryPoints(12);
 		
@@ -33,11 +35,20 @@ public class GameRules {
 		this.enableOpenTrull();
 		this.setOpenTrullTricks(8);
 		
+		this.enableTrumpFirstOpenTrullAce();
+		
 		this.enableCarteBlanche();
 		this.enableFullPass();
 		this.enableTrumpFirstOpenTrullAce();
 		this.enableImmediatelyElevenTricks();
-		this.chooseFirstDealMethod();
+		
+		this.setBiddingPoints(2);
+		this.setExtraTrickPoints(1);
+		this.setExactAmountOfTricksPoints(4);
+		this.setLossStartPoints(2);
+		this.enableDoubleScoreIfThirteenTricks();
+		this.setFullPassScoreMultiplication("linear");
+		this.setNumberOfScoreMultiplicatorsPerRound(2);
 	}
 	
 	
@@ -290,6 +301,80 @@ public class GameRules {
 	public boolean trumpFirstOpenTrullAce() {
 		return trumpFirstOpenTrullAce;
 	}
+	
+	/**********Double the Score if Thirteen Tricks obtained*********/
+	public boolean doubleScoreIfThirteenTricks() {
+		return doubleScoreIfThirteenTricks;
+	}
+
+	public void enableDoubleScoreIfThirteenTricks() {
+		this.doubleScoreIfThirteenTricks = true;
+	}
+	
+	public void disableDoubleScoreIfThirteenTricks() {
+		this.doubleScoreIfThirteenTricks = false;
+	}
+	
+	/**********Extra Points for Bidding One Extra Trick*********/
+	public int getBiddingPoints() {
+		return this.biddingPoints;
+	}
+
+	public void setBiddingPoints(int biddingPoints) {
+		assert(0 <= biddingPoints && biddingPoints <= 3);
+		this.biddingPoints = biddingPoints;
+	}
+	
+	/**********Extra Points for obtaining the exact amount of tricks bidded*********/
+	public int getExactAmountOfTricksPoints() {
+		return this.exactAmountOfTricksPoints;
+	}
+
+	public void setExactAmountOfTricksPoints(int exactAmountOfTricksPoints) {
+		assert (1 <= exactAmountOfTricksPoints&& exactAmountOfTricksPoints <= 10);
+		this.exactAmountOfTricksPoints = exactAmountOfTricksPoints;
+	}
+	
+	/**********Minimal Amount of Points Lost When Losing a Bidding Round*********/
+	public int getLossStartPoints() {
+		return lossStartPoints;
+	}
+
+	public void setLossStartPoints(int lossStartPoints) {
+		this.lossStartPoints = lossStartPoints;
+	}
+	
+	/**********Extra Points for each extra trick obtained above the amount of tricks bidded*********/
+	public int getExtraTrickPoints() {
+		return this.extraTrickPoints;
+	}
+
+	public void setExtraTrickPoints(int extraTrickPoints) {
+		assert(1 <= extraTrickPoints && extraTrickPoints <= 5);
+		this.extraTrickPoints = extraTrickPoints;
+	}
+	
+	/************ Score Multiplication for this Round When Everyone Passes **********/
+	public String getFullPassScoreMultiplication() {
+		return this.fullPassScoreMultiplication;
+	}
+
+	public void setFullPassScoreMultiplication(String fullPassScoreMultiplication) {
+		assert(fullPassScoreMultiplication == "exponential" || fullPassScoreMultiplication == "linear" || fullPassScoreMultiplication == "none");
+		this.fullPassScoreMultiplication = fullPassScoreMultiplication;
+	}
+	
+	/************ The Maximum Number of Score Multiplicators for One Round **********/
+	public int getNumberOfScoreMultiplicatorsPerRound() {
+		return numberOfScoreMultiplicatorsPerRound;
+	}
+
+	public void setNumberOfScoreMultiplicatorsPerRound(int numberOfScoreMultiplicatorsPerRound) {
+		assert(1 <= numberOfScoreMultiplicatorsPerRound && numberOfScoreMultiplicatorsPerRound <= 5);
+		this.numberOfScoreMultiplicatorsPerRound = numberOfScoreMultiplicatorsPerRound;
+	}
+
+
 
 	/********************************************/
 	/******************Variables*****************/
@@ -321,10 +406,12 @@ public class GameRules {
 	private boolean immediatelyElevenTricks;
 	private boolean trumpFirstOpenTrullAce;
 	private int		exactAmountOfTricksPoints;
-	private int		BiddingPoints;
+	private int		lossStartPoints;
+	private int		biddingPoints;
+	private int		extraTrickPoints;
 	private boolean	doubleScoreIfThirteenTricks;
-	private int		fullPassScoreMultiplication;
-	// TODO Auto-generated method stub
+	private String	fullPassScoreMultiplication;
+	private int 	numberOfScoreMultiplicatorsPerRound;
 	
 
 }
