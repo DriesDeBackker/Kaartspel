@@ -1,23 +1,23 @@
 package project;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Discussion {
 	
 	private Game game;
-	private static final List<String> options = Arrays.asList("Ask", "Piccolino", "Piccolo", "Small Misery", 
-			"Abundance", "Small Open Misery", "Trull", "Open Misery", "Solo","Pass");
+	private List<String> options;
 	private Players players;
 	private ArrayList<Team> teams;
 	private String outcome;
 	private Player currentPlayer;
 	private boolean discussionOver;
 	
-	public Discussion(Game game, Players players) {
+	
+	public Discussion(Game game, Players players, ArrayList<String> options) {
 		this.setPlayers(players);
 		this.setDiscussionNotOver();
+		this.setOptions(options);
 	}
 	
 
@@ -81,8 +81,8 @@ public class Discussion {
 	public List<String> getOptions() {
 		return options;
 	}
-
-	public void setOptions(List<String> options) {
+	
+	private void setOptions(ArrayList<String> options) {
 		this.options = options;
 	}
 	
