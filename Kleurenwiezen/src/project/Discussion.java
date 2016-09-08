@@ -22,12 +22,12 @@ public class Discussion {
 	
 
 	public void start() {
-		GameRules gameRules = this.getGameRules();
+		GameRules gameRules = this.getGame().getGameRules();
+		if (gameRules.carteBlancheAllowed()) {
+			this.askCarteBlanche();
+		}
 		if (gameRules.closedTrullAllowed() || gameRules.openTrullAllowed()) {
 			this.askTrull();
-		}
-		if (! this.isDiscussionOver() && gameRules.carteBlancheAllowed()) {
-			this.askCarteBlanche();
 		}
 		if (! this.isDiscussionOver()) {
 						
@@ -35,21 +35,19 @@ public class Discussion {
 		if (! this.isDiscussionOver()) {
 			
 		}
-		
 	}
 	
-	public void askTrull() {
+	private void askCarteBlanche() {
+		// TODO Auto-generated method stub	
+	}
+	
+	private void askTrull() {
 		for (Player player: this.players.getPlayers()) {
 			this.setCurrentPlayer(player);
 			if (player.hasTrull()) {
 				this.setOutcome("Closed Trull");
 			}
-			
 		}
-	}
-	
-	private void askCarteBlanche() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -64,10 +62,6 @@ public class Discussion {
 	
 	private boolean isDiscussionOver() {
 		return this.discussionOver;
-	}
-	
-	public GameRules getGameRules() {
-		return this.getGame().getGameRules();
 	}
 
 	public Players getPlayers() {

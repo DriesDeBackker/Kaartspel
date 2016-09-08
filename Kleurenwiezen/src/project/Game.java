@@ -4,25 +4,33 @@ import java.util.ArrayList;
 
 public class Game {
 	
-	private boolean gameOver;
+	private int status;
 	
 	public Game (Player host, GameRules gameRules) {
 		this.setHost(host);
 		this.addPlayer(host);
 		this.setGameRules(gameRules);
-		this.setGameNotOver();
+		this.setGameIdle();
 	}
 	
 	public void start() {
 		int roundNumber = 1;
-		while (! this.isGameOver()) {
+		while (! this.isGameOver() && ! this.isGameIdle()) {
 			ArrayList<String> discussionOptions = this.getDiscussionOptions();
 			Discussion discussion = new Discussion(this, players, discussionOptions);
+			this.setDiscussionOngoing();
 			discussion.start();
 			Round round = new Round(roundNumber, discussion.getOutcome(), this.getPlayers(), discussion.getTeams());
+			this.setRoundOngoing();
 			round.start();
+			this.setScoringOngoing();
+			this.updateScore();
 			roundNumber++;
 		}
+		// TODO Auto-generated method stub
+	}
+
+	private void updateScore() {
 		// TODO Auto-generated method stub
 	}
 
@@ -46,18 +54,46 @@ public class Game {
 		if (rules.carteBlancheAllowed()) 	{ discussionOptions.add("Carte Blanche");}
 		return discussionOptions;
 	}
+	
+	public boolean isGameIdle() {
+		return this.status == 1;
+	}
+	
+	public void setGameIdle() {
+		this.status = 1;
+	}
+	
+	public boolean isDiscussionOngoing() {
+		return this.status == 2;
+	}
 
+	private void setDiscussionOngoing() {
+		this.status = 2;
+	}
+	
+	public boolean isRoundOngoing() {
+		return this.status == 3;
+	}
+	
+	private void setRoundOngoing() {
+		this.status = 3;
+	}
+	
+	public boolean isScoringOngoing() {
+		return this.status == 4;
+	}
+	
+	private void setScoringOngoing() {
+		this.status = 4;
+	}
+	
 	public boolean isGameOver() {
-		return this.gameOver;
+		return this.status == 5;
 	}
 	
 	@SuppressWarnings("unused")
 	private void setGameOver() {
-		this.gameOver = true;
-	}
-	
-	private void setGameNotOver() {
-		this.gameOver = false;
+		this.status = 5;
 	}
 
 	private void setGameRules(GameRules gameRules) {
