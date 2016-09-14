@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public class Score {
 	
-	public Score (Player player) {
-		this.setPlayer(player);
+	private Team team;
+	private ArrayList<Integer> scoreEntries;
+	private ArrayList<String> roundTypes;
+	
+	public Score (Team team) {
+		this.setTeam(team);
 	}
 
-	private void setPlayer(Player player) {
-		this.player = player;
+	private void setTeam(Team team) {
+		this.team = team;
 	}
 	
-	public Player getPlayer() {
-		return this.player;
+	public Team getTeam() {
+		return this.team;
 	}
 	
 	public ArrayList<Integer> getScoreEntries() {
@@ -43,9 +47,5 @@ public class Score {
 	public void addRoundType(String roundType) {
 		this.roundTypes.add(roundType);
 	}
-
-	private Player player;
-	private ArrayList<Integer> scoreEntries;
-	private ArrayList<String> roundTypes;
 
 }

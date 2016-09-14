@@ -4,23 +4,37 @@ import java.util.ArrayList;
 
 public class Team {
 	
-	private ArrayList<Player> players;
+	private Player firstPlayer;
+	private Player secondPlayer;
 	private ArrayList<Trick> tricks;
-	private String roundType;
-	private boolean attemptingTeam;
+	private Score score;
 	
-	public Team(ArrayList<Player> players, String roundType, boolean attemptingTeam) {
-		this.setPlayers(players);
-		this.setRoundType(roundType);
-		this.setAttemptingTeam(attemptingTeam);
+	public Team(Player firstPlayer, Player secondPlayer, Score score) {
+		this.setFirstPlayer(firstPlayer);
+		this.setSecondPlayer(secondPlayer);
+		this.setScore(score);
+	}
+	
+	public Team(Player firstPlayer, Player secondPlayer) {
+		this.setFirstPlayer(firstPlayer);
+		this.setSecondPlayer(secondPlayer);
+		this.setScore(new Score(this));
 	}
 
-	private void setPlayers(ArrayList<Player> players) {
-		this.players = players;
+	private void setFirstPlayer(Player firstPlayer) {
+		this.firstPlayer = firstPlayer;
 	}
 	
-	public ArrayList<Player> getPlayers () {
-		return this.players;
+	public Player getFirstPlayer() {
+		return this.firstPlayer;
+	}
+
+	private void setSecondPlayer(Player secondPlayer) {
+		this.secondPlayer = secondPlayer;
+	}
+	
+	public Player getSecondPlayer() {
+		return this.secondPlayer;
 	}
 
 	public ArrayList<Trick> getTricks() {
@@ -31,20 +45,16 @@ public class Team {
 		this.tricks.add(trick);
 	}
 
-	public String getRoundType() {
-		return roundType;
+	public Score getScore() {
+		return score;
 	}
 
-	public void setRoundType(String roundType) {
-		this.roundType = roundType;
+	public void setScore(Score score) {
+		this.score = score;
 	}
-
-	public boolean isAttemptingTeam() {
-		return attemptingTeam;
-	}
-
-	public void setAttemptingTeam(boolean attemptingTeam) {
-		this.attemptingTeam = attemptingTeam;
+	
+	public int getCurrentPoints() {
+		return this.score.getLastScoreEntry();
 	}
 	
 }

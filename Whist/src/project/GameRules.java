@@ -2,17 +2,18 @@ package project;
 
 public class GameRules {
 
+	private int maximumPoints;
+	private int dealMethod;
+	private int	extraTrickPoints;
+	
 	public GameRules() {
 		this.chooseFirstDealMethod();
 		this.setExtraTrickPoints(1);
 		this.setMaximumPoints(5);
 	}
 	
-	
-	/***********************************************************/
-	/******Getters and setters for rules and their points*******/
-	/***********************************************************/
-	
+
+	/******Choose the deal method*******/
 	public void chooseFirstDealMethod() {
 		this.setDealMethod(1);
 	}
@@ -39,12 +40,18 @@ public class GameRules {
 		assert(1 <= extraTrickPoints && extraTrickPoints <= 5);
 		this.extraTrickPoints = extraTrickPoints;
 	}
+	
+	/**********The Maximum amount of points a team can obtain.*********/
+	private void setMaximumPoints(int maximumPoints) {
+		assert(5 <= maximumPoints);
+		this.maximumPoints = maximumPoints;
+	}
+	
+	public int getMaximumPoints() {
+		return this.maximumPoints;
+	}
 
-	/********************************************/
-	/******************Variables*****************/
-	/********************************************/
-	private int dealMethod;
-	private int	extraTrickPoints;
+
 
 	
 

@@ -4,29 +4,24 @@ import java.util.ArrayList;
 
 public class Round {
 
-	public Round (int roundNumber, String roundType, Players players, ArrayList<Team> teams) {
-		this.setRoundNumber(roundNumber);
-		this.setRoundType(roundType);
-		this.setPlayers(players);
-		this.setTeams(teams);
-		this.setTrickNumber(1);
-	}
-
-	private void setRoundType(String roundType) {
-		this.roundType = roundType;
-	}
+	private Game game;
+	private int roundNumber;
+	private ArrayList<Trick> tricks;
 	
-	public String getRoundType() {
-		return this.roundType;
+	public Round (Game game, int roundNumber) {
+		this.setGame(game);
+		this.setRoundNumber(roundNumber);
+		this.setTricks(new ArrayList<Trick>());
 	}
 
 	public void start() {
-		while (this.getTrickNumber() < 14) {
+		while (this.getTrickNumber() < 13) {
 			this.playTrick();
 		}
 	}
 	
 	public void playTrick() {
+		assert (this.getTricks().size() < 13);
 		Trick trick = new Trick();
 		Card firstCard = this.getPlayers().getFirstPlayer().playCard();
 		trick.addCard(firstCard);
@@ -36,9 +31,19 @@ public class Round {
 		trick.addCard(thirdCard);
 		Card fourthCard = this.getPlayers().getFourthPlayer().playCard();
 		trick.addCard(fourthCard);
+		this.addTrick(trick);
+	}
+	
+	private void setGame(Game game) {
+		this.game = game;
+	}
+	
+	public Game getGame() {
+		return this.game;
 	}
 
 	private void setRoundNumber(int roundNumber) {
+		assert(1 <= roundNumber);
 		this.roundNumber = roundNumber;
 	}
 	
@@ -47,37 +52,31 @@ public class Round {
 	}
 	
 	public Players getPlayers () {
-		return this.players;
+		return this.getGame().getPlayers();
 	}
 	
 	public ArrayList<Player> getListOfPlayers() {
 		return this.getPlayers().getPlayers();
 	}
-
-	private void setPlayers(Players players) {
-		this.players = players;
-	}
 	
 	public ArrayList<Team> getTeams() {
-		return this.teams;
-	}
-	
-	private void setTeams(ArrayList<Team> teams) {
-		this.teams = teams;
-	}
-	
-	private void setTrickNumber(int trickNumber) {
-		this.trickNumber = trickNumber;
+		return this.getGame().getTeams();
 	}
 	
 	public int getTrickNumber() {
-		return this.trickNumber;
+		return this.getTricks().size();
+	}
+
+	public ArrayList<Trick> getTricks() {
+		return tricks;
+	}
+
+	private void setTricks(ArrayList<Trick> tricks) {
+		this.tricks = tricks;
 	}
 	
-	private int roundNumber;
-	private String roundType;
-	private Players players;
-	private ArrayList<Team> teams;
-	private int trickNumber;
-
+	private void addTrick(Trick trick) {
+		this.tricks.add(trick);
+	}
+	
 }
