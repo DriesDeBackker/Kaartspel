@@ -1,4 +1,4 @@
-package project;
+package whist.model;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ public class Game {
 	private int status;
 	private Player host;
 	private Players players;
+	private Player currentPlayer;
 	private ArrayList<Team> teams;
 	private GameRules gameRules;
 	private Round round;
@@ -164,6 +165,14 @@ public class Game {
 
 	public void setRoundNumber(int roundNumber) {
 		this.roundNumber = roundNumber;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 
 }

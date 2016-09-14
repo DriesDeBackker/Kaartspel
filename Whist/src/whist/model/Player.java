@@ -1,4 +1,4 @@
-package project;
+package whist.model;
 
 import java.util.ArrayList;
 

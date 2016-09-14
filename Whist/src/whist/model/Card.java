@@ -1,4 +1,4 @@
-package project;
+package whist.model;
 
 
 public class Card {
