@@ -13,26 +13,6 @@ public class Round {
 		this.setRoundNumber(roundNumber);
 		this.setTricks(new ArrayList<Trick>());
 	}
-
-	public void start() {
-		while (this.getTrickNumber() < 13) {
-			this.playTrick();
-		}
-	}
-	
-	public void playTrick() {
-		assert (this.getTricks().size() < 13);
-		Trick trick = new Trick();
-		Card firstCard = this.getPlayers().getFirstPlayer().playCard();
-		trick.addCard(firstCard);
-		Card secondCard = this.getPlayers().getSecondPlayer().playCard();
-		trick.addCard(secondCard);
-		Card thirdCard = this.getPlayers().getThirdPlayer().playCard();
-		trick.addCard(thirdCard);
-		Card fourthCard = this.getPlayers().getFourthPlayer().playCard();
-		trick.addCard(fourthCard);
-		this.addTrick(trick);
-	}
 	
 	private void setGame(Game game) {
 		this.game = game;
@@ -51,12 +31,8 @@ public class Round {
 		return this.roundNumber;
 	}
 	
-	public Players getPlayers () {
+	public ArrayList<Player> getPlayers () {
 		return this.getGame().getPlayers();
-	}
-	
-	public ArrayList<Player> getListOfPlayers() {
-		return this.getPlayers().getPlayers();
 	}
 	
 	public ArrayList<Team> getTeams() {

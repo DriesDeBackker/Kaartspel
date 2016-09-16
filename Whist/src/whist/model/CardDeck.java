@@ -1,23 +1,17 @@
 package whist.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CardDeck {
 	
+	private ArrayList<Card> cards = new ArrayList<Card>();
 	
-	/**
-	 * @invar	The amount of cards in the deck is always between 0 and 52.
-	 */
 	
 	public CardDeck () {
 		this.setCards(generateCards());
 	}
 	
-	/**
-	 * Generate a new card deck.
-	 * 
-	 * @return the new deck
-	 */
 	private ArrayList<Card> generateCards() {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		for(int suit = 1; suit <= 4; suit++) {
@@ -79,6 +73,17 @@ public class CardDeck {
 		return (this.getNumberOfCardsInDeck() == 0);
 	}
 
+	public void shuffle() {
+		Collections.shuffle(this.getCards());
+	}
 	
-	private ArrayList<Card> cards = new ArrayList<Card>();
+	public void cut (int cardNumber) {
+		assert (1 <= cardNumber && cardNumber <= 52);
+		cardNumber--;
+		ArrayList<Card> firstHalf  = (ArrayList<Card>) this.getCards().subList(0, cardNumber);
+		ArrayList<Card> secondHalf = (ArrayList<Card>) this.getCards().subList(cardNumber+1, 51);
+		ArrayList<Card> cutCards = new ArrayList<Card>();
+		cutCards.addAll(secondHalf);
+		cutCards.addAll(firstHalf);
+	}
 }

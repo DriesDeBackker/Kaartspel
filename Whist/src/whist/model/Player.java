@@ -90,6 +90,7 @@ public class Player {
 		this.setCardDeck(null);
 	}
 	
+	/**
 	public void deal() {
 		Players players = this.getGame().getPlayers();
 		assert (players.getFirstPlayer() != null);
@@ -115,7 +116,7 @@ public class Player {
 				this.getCardDeck().dealCards(7, player);
 			}
 		}
-	}
+	}**/
 
 	public ArrayList<Trick> getTricks() {
 		return tricks;

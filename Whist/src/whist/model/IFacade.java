@@ -5,36 +5,50 @@ package whist.model;
  * 
  */
 public interface IFacade {
+	
+	Player createHost(String name, int number);
+	
+	GameRules createGameRules();
+	
+	Game createGame(Player host, GameRules rules, CardDeck deck);
+	
+	void startGame(Game game);
+	
+	void startNextRound(Game game);
+	
+	void startScoring(Game game);
 
-	void createGame();
+	CardDeck createDeck();
 	
-	void startGame();
-
-	void createDeck();
+	void shuffleDeck(CardDeck deck);
 	
-	void createPlayers();
+	void cutDeck(CardDeck deck, int number);
 	
-	void shuffleDeck();
+	Player createPlayer(String name, int number);
 	
-	void cutDeck();
+	boolean isGameIdle(Game game);
 	
-	void isGameIdle();
+	void setGameIdle(Game game);
 	
-	void setGameIdle();
+	boolean isGameReady(Game game);
 	
-	void isGameReady();
+	void setGameReady(Game game);
 	
-	void setGameReady();
+	boolean isDealing(Game game);
 	
-	void isRoundOngoing();
+	void startDealing(Game game);
 	
-	void setRoundOngoing();
+	boolean isPlaying(Game game);
 	
-	void isScoringOngoing();	
+	void startPlaying(Game game);
 	
-	void isGameOver();
+	boolean isGameOver(Game game);
 	
-	void getCurrentRound();
+	void setGameOver(Game game);
+	
+	Round getCurrentRound(Game game);
+	
+	int getCurrentRoundNumber(Game game);
 
 
 }

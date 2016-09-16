@@ -4,92 +4,119 @@ import java.util.ArrayList;
 
 public class Game {
 	
-	private int status;
+	private Status status;
 	private Player host;
-	private Players players;
+	private ArrayList<Player> players;
 	private Player currentPlayer;
 	private ArrayList<Team> teams;
 	private GameRules gameRules;
-	private Round round;
-	private int roundNumber;
+	private CardDeck cardDeck;
+	private Round currentRound;
 	
-	public Game (Player host, GameRules gameRules) {
+	public Game (Player host, GameRules gameRules, CardDeck cardDeck) {
 		this.setHost(host);
 		this.addPlayer(host);
 		this.setGameRules(gameRules);
-		this.setGameIdle();
-		this.setRoundNumber(0);
+		this.setCardDeck(cardDeck);
+		this.setIdle();
 	}
 	
 	public void start() {
-		while (this.isGameIdle()) {
-			if (this.getPlayers().getPlayers().size() == 4) {
-				this.setGameReady();
-			}
-		}
-		if (this.isGameReady()) {
-			this.setRoundNumber(1);
-			while (! this.isGameOver()) {
-				this.setRound(new Round(this, roundNumber));
-				this.setRoundOngoing();
-				this.getRound().start();
-				this.setScoringOngoing();
-				this.updateScore();
-				this.setRoundNumber(this.getRoundNumber() + 1);
-				if (this.goalReached()) {
-					this.setGameOver();
-				}
-			}
-		}
-		
+		this.setCurrentPlayer(this.getPlayer(1));
+		this.setCurrentRound(new Round(this, 1));
 	}
 	
-	private void setRound(Round round) {
-		this.round = round;
+	public void startNexRound() {
+		this.setCurrentRound(new Round(this, this.getCurrentRoundNumber() + 1));
 	}
 	
-	public Round getRound() {
-		return this.round;
+	public void startDealing() {
+		assert(this.isReady());
+		this.setDealing();
+	}
+	
+	public void startPlaying() {
+		assert(this.isDealing());
+		this.setPlaying();
+	}
+	
+	public void startScoring() {
+		assert(this.isScoring());
+		this.setScoring();
+	}
+	
+	public Player getDealer() {
+		assert(this.hasDealer());
+		int playerNumber = this.getCurrentRoundNumber()/4;
+		return this.getPlayer(playerNumber);
+	}
+	
+	private boolean hasDealer() {
+		return (! this.isIdle() && ! this.isGameOver());
 	}
 
-	public boolean isGameIdle() {
-		return this.status == 1;
+	private void setCurrentRound(Round round) {
+		this.currentRound = round;
 	}
 	
-	public void setGameIdle() {
-		this.status = 1;
+	public Round getCurrentRound() {
+		return this.currentRound;
 	}
 	
-	public void setGameReady() {
-		this.status = 2;
+	public int getCurrentRoundNumber() {
+		if (!(this.getCurrentRound() == null)) {
+			return this.getCurrentRound().getRoundNumber();
+		} else {
+			return 0;
+		}
+	}
+
+	public boolean isIdle() {
+		return this.status == Status.IDLE;
 	}
 	
-	public boolean isGameReady() {
-		return this.status == 2;
+	public void setIdle() {
+		this.status = Status.IDLE;
 	}
 	
-	public boolean isRoundOngoing() {
-		return this.status == 3;
+	public boolean isReady() {
+		return this.status == Status.READY;
 	}
 	
-	private void setRoundOngoing() {
-		this.status = 3;
+	public void setReady() {
+		this.status = Status.READY;
 	}
 	
-	public boolean isScoringOngoing() {
-		return this.status == 4;
+	public boolean isDealing() {
+		return this.status == Status.DEALING;
 	}
 	
-	private void setScoringOngoing() {
-		this.status = 4;
+	private void setDealing () {
+		this.status = Status.DEALING;
+	}
+	
+	public boolean isPlaying() {
+		return this.status == Status.PLAYING;
+	}
+	
+	private void setPlaying() {
+		this.status = Status.PLAYING;
+	}
+	
+	public boolean isScoring() {
+		return this.status == Status.SCORING;
+	}
+	
+	private void setScoring() {
+		this.status = Status.SCORING;
 	}
 	
 	public boolean isGameOver() {
-		return this.status == 5;
+		return this.status == Status.GAMEOVER;
 	}
 	
-	private void setGameOver() {
-		this.status = 5;
+	public void setGameOver() {
+		this.status = Status.GAMEOVER;
 	}
 	
 	public boolean goalReached() {
@@ -108,20 +135,26 @@ public class Game {
 		return this.gameRules;
 	}
 
-	public Players getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
+	
+	public Player getPlayer(int number) {
+		assert (1 <= number && number <= 4);
+		int index = number-1;
+		return this.getPlayers().get(index);
+	}
 
-	public void setPlayers(Players players) {
+	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
 	}
 	
 	public void addPlayer(Player player) {
-		this.players.addPlayer(player);
+		this.players.add(player);
 	}
 	
 	public void removePlayer(Player player) {
-		this.players.removePlayer(player);
+		this.players.remove(player);
 	}
 	
 	public Player getHost() {
@@ -150,21 +183,12 @@ public class Game {
 	}
 	
 	public void initiateTeams() {
-		Players players = this.getPlayers();
-		assert(players.getPlayers().size() == 4);
-		Team team1 = new Team(players.getFirstPlayer(), players.getThirdPlayer());
-		Team team2 = new Team(players.getSecondPlayer(), players.getFourthPlayer());
+		assert(this.getPlayers().size() == 4);
+		Team team1 = new Team(this.getPlayer(1), this.getPlayer(3));
+		Team team2 = new Team(this.getPlayer(2), this.getPlayer(4));
 		ArrayList<Team> teams = new ArrayList<Team>();
 		teams.add(team1); teams.add(team2);
 		this.setTeams(teams);
-	}
-
-	public int getRoundNumber() {
-		return roundNumber;
-	}
-
-	public void setRoundNumber(int roundNumber) {
-		this.roundNumber = roundNumber;
 	}
 
 	public Player getCurrentPlayer() {
@@ -173,6 +197,14 @@ public class Game {
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+
+	public CardDeck getCardDeck() {
+		return cardDeck;
+	}
+
+	public void setCardDeck(CardDeck cardDeck) {
+		this.cardDeck = cardDeck;
 	}
 
 }
