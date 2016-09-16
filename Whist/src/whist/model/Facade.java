@@ -31,6 +31,10 @@ public class Facade implements IFacade {
 		return new Game(host, rules, deck);
 	}
 	
+	public void addPlayer(Game game, Player player) {
+		game.addPlayer(player);
+	}
+	
 	public void startGame(Game game) {
 		game.start();
 	}
