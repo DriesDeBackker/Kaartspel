@@ -10,6 +10,7 @@ public class Player {
 	private Hand hand;
 	private CardDeck cardDeck;
 	private ArrayList<Trick> tricks;
+	private boolean active;
 
 	public Player (String name, int number, Game game) {
 		this.setName(name);
@@ -18,6 +19,7 @@ public class Player {
 		this.setCardDeck(null);
 		this.setHand(new Hand(this));
 		this.setTricks(new ArrayList<Trick>());
+		this.setActive();
 	}
 	
 	public Player (String name, int number) {
@@ -26,6 +28,7 @@ public class Player {
 		this.setCardDeck(null);
 		this.setHand(new Hand(this));
 		this.setTricks(new ArrayList<Trick>());
+		this.setActive();
 	}
 	
 	private void setName(String name) {
@@ -107,6 +110,18 @@ public class Player {
 	
 	public void addTrick(Trick trick) {
 		this.tricks.add(trick);
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive() {
+		this.active = true;
+	}
+	
+	public void setNonActive() {
+		this.active = false;
 	}
 
 }

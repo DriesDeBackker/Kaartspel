@@ -30,7 +30,32 @@ public class WhistGUI {
 		this.chooseRules();
 		this.addOtherPlayers();
 		facade.startGame(game);
-		this.playRound();
+		this.play();
+	}
+	
+	private void play() {
+		while (! facade.isGameOver(game)) {
+			while (facade.isGameIdle(game)) {
+				if(facade.allPlayersPresent(game)) {
+					facade.goToReady(game);
+				}
+			}
+			while (facade.isGameReady(game)) {
+				if(facade.allPlayersActive(game)) {
+					facade.startDealing(game);
+				}
+			}
+			this.dealCards();
+			facade.startPlaying(game);
+			for (int i = 1; i <= 13; i++) {
+				this.playTrick();
+			}
+			facade.startScoring(game);
+			this.updateScore();
+			
+			facade.setGameOver(game);
+		}
+		
 	}
 
 	private void createGame() {	
@@ -94,9 +119,13 @@ public class WhistGUI {
 		newGameRules.setMaximumPoints(maximumPoints);
 		facade.setGameRules(game, newGameRules);
 	}
-	
-	private void playRound() {
-		this.dealCards();
+
+	private void updateScore() {
+		System.out.println("de score bijwerken");
+	}
+
+	private void playTrick() {
+		System.out.println("Slag spelen");
 	}
 
 	private void dealCards() {
@@ -105,38 +134,27 @@ public class WhistGUI {
 		if (dealMethod == 1) {
 			for (Player player: players) {
 				facade.dealCards(game, player, 4);
-				System.out.println("De hand van " + player.getName() + ": " +  newLine + stringifyCards(player));
 			}
-			System.out.println("eerste deelronde afgerond");
 			for (Player player: players) {
 				facade.dealCards(game, player, 4);
-				System.out.println("De hand van " + player.getName() + ": " +  newLine + stringifyCards(player));
 			}
-			System.out.println("tweede deelronde afgerond");
 			for (Player player: players) {
 				facade.dealCards(game, player, 5);
 				System.out.println("De hand van " + player.getName() + ": " +  newLine + stringifyCards(player));
 			}
-			System.out.println("derde deelronde afgerond");
 		} else if (dealMethod == 2) {
 			for (Player player: players) {
 				facade.dealCards(game, player, 6);
-				System.out.println("De hand van " + player.getName() + ": " +  newLine + stringifyCards(player));
 			}
-			System.out.println("eerste deelronde afgerond");
 			for (Player player: players) {
 				facade.dealCards(game, player, 7);
 				System.out.println("De hand van " + player.getName() + ": " +  newLine + stringifyCards(player));
 			}
-			System.out.println("tweede deelronde afgerond");
 		}
-		
 		System.out.println("Dit is troef: " + players.get(3).getHand().getCards().get(12).getSuit());
-		
 	}
 
 	private static String stringifyCards(Player player) {
-		
 		String cardsString = "";
 		for (Card card: player.getHand().getCards()) {
 			cardsString = cardsString + card.getSuit() + " " + card.getRank() + ", ";

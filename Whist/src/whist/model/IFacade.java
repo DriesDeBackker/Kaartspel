@@ -73,5 +73,11 @@ public interface IFacade {
 	Player getCurrentPlayer(Game game);
 	
 	ArrayList<Player> getPlayers(Game game);
+	
+	boolean allPlayersPresent(Game game);
+	
+	int numberOfAvailablePlayers(Game game);
+	
+	boolean allPlayersActive(Game game);
 
 }

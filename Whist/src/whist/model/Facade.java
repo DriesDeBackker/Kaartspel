@@ -135,10 +135,22 @@ public class Facade implements IFacade {
 	public ArrayList<Player> getPlayers(Game game) {
 		return game.getPlayers();
 	}
+	
+	public boolean allPlayersPresent(Game game) {
+		return this.getPlayers(game).size() == 4;
+	}
+	
+	public boolean allPlayersActive(Game game) {
+		ArrayList<Player> players = game.getPlayers();
+		return (players.get(0).isActive() && players.get(1).isActive() && players.get(2).isActive() && players.get(3).isActive());
+	}
+	
+	public int numberOfAvailablePlayers(Game game) {
+		return game.getPlayers().size();
+	}
 
 	public void dealCards(Game game, Player player, int amount) {
-		game.getCardDeck().dealCards(amount, player);
-		
+		game.getCardDeck().dealCards(amount, player);	
 	}
 	
 }

@@ -28,7 +28,7 @@ public class Hand {
 		assert(1 <= suit && suit <= 4);
 		int numberOfCards = 0;
 		for (Card card: this.getCards()) {
-			if (card.getSuit() == suit){
+			if (card.getSuit() == Suit.valueOf(suit)){
 				numberOfCards ++;
 			}
 		} return numberOfCards;
@@ -38,7 +38,7 @@ public class Hand {
 		assert(2 <= rank && rank <= 14);
 		int numberOfCards = 0;
 		for (Card card: this.getCards()) {
-			if (card.getRank() == rank){
+			if (card.getRank() == Rank.valueOf(rank)){
 				numberOfCards ++;
 			}
 		} return numberOfCards;
@@ -59,7 +59,7 @@ public class Hand {
 	public boolean isSuitPresent(int suit) {
 		boolean suitPresent = false;
 		for (Card card: this.getCards()) {
-			if (card.getSuit() == suit) {
+			if (card.getSuit() == Suit.valueOf(suit)) {
 				suitPresent = true;
 			}
 		} return suitPresent;
@@ -71,9 +71,9 @@ public class Hand {
 		Card soughtCard = null;
 		int rank = 0;
 		for (Card card: this.getCards()) {
-			if (card.getSuit() == suit && card.getRank() > rank) {
+			if (card.getSuit() == Suit.valueOf(suit) && card.getRank().getValue() > rank) {
 				soughtCard = card;
-				rank = card.getRank();
+				rank = card.getRank().getValue();
 			}
 		} return soughtCard;
 	}
@@ -84,9 +84,9 @@ public class Hand {
 		Card soughtCard = null;
 		int rank = 15;
 		for (Card card: this.getCards()) {
-			if (card.getSuit() == suit && card.getRank() < rank) {
+			if (card.getSuit() == Suit.valueOf(suit) && card.getRank().getValue() < rank) {
 				soughtCard = card;
-				rank = card.getRank();
+				rank = card.getRank().getValue();
 			}
 		} return soughtCard;
 	}
