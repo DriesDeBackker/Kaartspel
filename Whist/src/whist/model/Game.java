@@ -6,7 +6,7 @@ public class Game {
 	
 	private Status status;
 	private Player host;
-	private ArrayList<Player> players;
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private Player currentPlayer;
 	private ArrayList<Team> teams;
 	private GameRules gameRules;
@@ -28,6 +28,10 @@ public class Game {
 	
 	public void startNexRound() {
 		this.setCurrentRound(new Round(this, this.getCurrentRoundNumber() + 1));
+	}
+	
+	public void goToReady() {
+		assert(this.isIdle());
 	}
 	
 	public void startDealing() {
@@ -127,7 +131,7 @@ public class Game {
 		// TODO Auto-generated method stub
 	}
 
-	private void setGameRules(GameRules gameRules) {
+	public void setGameRules(GameRules gameRules) {
 		this.gameRules = gameRules;
 	}
 	

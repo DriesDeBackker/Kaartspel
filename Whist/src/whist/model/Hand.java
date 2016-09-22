@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Hand {
 	
+	private ArrayList<Card> cards = new ArrayList<Card>();
+	private Player owner;
+	private boolean open;
+	
 	public Hand (Player owner) {
 		this.setOwner(owner);
 	}
@@ -126,9 +130,5 @@ public class Hand {
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
-
-	private ArrayList<Card> cards;
-	private Player owner;
-	private boolean open;
 
 }

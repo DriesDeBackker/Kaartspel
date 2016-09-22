@@ -16,6 +16,7 @@ public class Player {
 		this.setNumber(number);
 		this.setGame(game);
 		this.setCardDeck(null);
+		this.setHand(new Hand(this));
 		this.setTricks(new ArrayList<Trick>());
 	}
 	
@@ -23,6 +24,8 @@ public class Player {
 		this.setName(name);
 		this.setNumber(number);
 		this.setCardDeck(null);
+		this.setHand(new Hand(this));
+		this.setTricks(new ArrayList<Trick>());
 	}
 	
 	private void setName(String name) {
@@ -89,34 +92,6 @@ public class Player {
 	public void removeCardDeck() {
 		this.setCardDeck(null);
 	}
-	
-	/**
-	public void deal() {
-		Players players = this.getGame().getPlayers();
-		assert (players.getFirstPlayer() != null);
-		assert (players.getSecondPlayer() != null);
-		assert (players.getFirstPlayer() != null);
-		assert (players.getFirstPlayer() == this);
-		int dealMethod = this.getGame().getGameRules().getDealMethod();
-		if (dealMethod == 1) {
-			for (Player player: players.getPlayers()) {
-				this.getCardDeck().dealCards(4, player);
-			}
-			for (Player player: players.getPlayers()) {
-				this.getCardDeck().dealCards(4, player);
-			}
-			for (Player player: players.getPlayers()) {
-				this.getCardDeck().dealCards(5, player);
-			}
-		} else if (dealMethod == 2) {
-			for (Player player: players.getPlayers()) {
-				this.getCardDeck().dealCards(6, player);
-			}
-			for (Player player: players.getPlayers()) {
-				this.getCardDeck().dealCards(7, player);
-			}
-		}
-	}**/
 
 	public ArrayList<Trick> getTricks() {
 		return tricks;

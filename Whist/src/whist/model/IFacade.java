@@ -1,5 +1,7 @@
 package whist.model;
 
+import java.util.ArrayList;
+
 /**
  * Implement this interface to connect your code to the user interface.
  * 
@@ -24,7 +26,11 @@ public interface IFacade {
 	
 	void cutDeck(CardDeck deck, int number);
 	
+	void dealCards(Game game, Player player, int amount) ;
+	
 	Player createPlayer(String name, int number);
+	
+	void addPlayer(Game game, Player player);
 	
 	boolean isGameIdle(Game game);
 	
@@ -32,7 +38,7 @@ public interface IFacade {
 	
 	boolean isGameReady(Game game);
 	
-	void setGameReady(Game game);
+	void goToReady(Game game);
 	
 	boolean isDealing(Game game);
 	
@@ -49,6 +55,23 @@ public interface IFacade {
 	Round getCurrentRound(Game game);
 	
 	int getCurrentRoundNumber(Game game);
-
+	
+	GameRules getGameRules(Game game);
+	
+	CardDeck getCardDeck(Game game);
+	
+	void setGameRules(Game game, GameRules rules);
+	
+	Player getFirstPlayer(Game game);
+	
+	Player getSecondPlayer(Game game);
+	
+	Player getThirdPlayer(Game game);
+	
+	Player getFourthPlayer(Game game);
+	
+	Player getCurrentPlayer(Game game);
+	
+	ArrayList<Player> getPlayers(Game game);
 
 }

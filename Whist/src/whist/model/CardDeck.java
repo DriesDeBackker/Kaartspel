@@ -24,7 +24,7 @@ public class CardDeck {
 	
 	public void dealCards(int number, Player player) {
 		assert(1 <= number && number <= 52);
-		for (int i = 1; i == number; i++) {
+		for(int i=1; i<=number; i++){
 			this.dealCard(player);
 		}
 	}

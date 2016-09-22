@@ -1,5 +1,6 @@
 package whist.model;
 
+import java.util.ArrayList;
 
 public class Facade implements IFacade {
 	
@@ -43,12 +44,12 @@ public class Facade implements IFacade {
 		game.startNexRound();
 	}
 	
-	public void startScoring(Game game) {
-		game.startScoring();
+	public void goToReady(Game game) {
+		game.goToReady();
 	}
 	
-	public void shuffleCardDeck(CardDeck cardDeck) {
-		cardDeck.shuffle();
+	public void startScoring(Game game) {
+		game.startScoring();
 	}
 	
 	public boolean isGameIdle(Game game) {
@@ -97,6 +98,47 @@ public class Facade implements IFacade {
 
 	public int getCurrentRoundNumber(Game game) {
 		return game.getCurrentRoundNumber();
+	}
+
+	public GameRules getGameRules(Game game) {
+		return game.getGameRules();
+	}
+	
+	public void setGameRules(Game game, GameRules newGameRules) {
+		game.setGameRules(newGameRules);
+	}
+
+	public CardDeck getCardDeck(Game game) {
+		return game.getCardDeck();
+	}
+
+	public Player getFirstPlayer(Game game) {
+		return game.getPlayer(1);
+	}
+	
+	public Player getSecondPlayer(Game game) {
+		return game.getPlayer(2);
+	}
+	
+	public Player getThirdPlayer(Game game) {
+		return game.getPlayer(3);
+	}
+	
+	public Player getFourthPlayer(Game game) {
+		return game.getPlayer(4);
+	}
+	
+	public Player getCurrentPlayer(Game game) {
+		return game.getCurrentPlayer();
+	}
+	
+	public ArrayList<Player> getPlayers(Game game) {
+		return game.getPlayers();
+	}
+
+	public void dealCards(Game game, Player player, int amount) {
+		game.getCardDeck().dealCards(amount, player);
+		
 	}
 	
 }

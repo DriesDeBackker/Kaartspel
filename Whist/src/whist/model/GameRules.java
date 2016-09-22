@@ -42,7 +42,7 @@ public class GameRules {
 	}
 	
 	/**********The Maximum amount of points a team can obtain.*********/
-	private void setMaximumPoints(int maximumPoints) {
+	public void setMaximumPoints(int maximumPoints) {
 		assert(5 <= maximumPoints);
 		this.maximumPoints = maximumPoints;
 	}
