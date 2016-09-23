@@ -1,6 +1,7 @@
 package whist.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Hand {
 	
@@ -13,7 +14,31 @@ public class Hand {
 	}
 	
 	public void sortCards() {
-		// TODO Auto-generated method stub
+		ArrayList<Card> hearts 	 = new ArrayList<Card>();
+		ArrayList<Card> diamonds = new ArrayList<Card>();
+		ArrayList<Card> clubs 	 = new ArrayList<Card>();
+		ArrayList<Card> spades 	 = new ArrayList<Card>();
+		for (Card card : this.getCards()) {
+		    if (card.getSuit() == Suit.HEARTS) {
+		    	hearts.add(card);	
+			} else if (card.getSuit() == Suit.DIAMONDS) {
+				diamonds.add(card);				
+			} else if (card.getSuit() == Suit.CLUBS) {
+				clubs.add(card);				
+			} else if (card.getSuit() == Suit.SPADES) {
+				spades.add(card);
+			}
+		}
+		Collections.sort(hearts, (c1, c2) -> c1.getRank().getValue() - c2.getRank().getValue());
+		Collections.sort(diamonds, (c1, c2) -> c1.getRank().getValue() - c2.getRank().getValue());
+		Collections.sort(spades, (c1, c2) -> c1.getRank().getValue() - c2.getRank().getValue());
+		Collections.sort(clubs, (c1, c2) -> c1.getRank().getValue() - c2.getRank().getValue());
+		ArrayList<Card> sortedCards = new ArrayList<Card>();
+		sortedCards.addAll(hearts);
+		sortedCards.addAll(clubs);
+		sortedCards.addAll(diamonds);
+		sortedCards.addAll(spades);
+		this.setCards(sortedCards);
 	}
 	
 	public int countCards() {

@@ -158,7 +158,7 @@ public class Facade implements IFacade {
 	}
 	
 	public Trick getCurrentTrick(Game game) {
-		return game.getCurrentRound().getLastTrick();
+		return game.getCurrentRound().getCurrentTrick();
 	}
 	
 	public Round createRound(Game game, int number) {
@@ -170,10 +170,17 @@ public class Facade implements IFacade {
 	}
 
 	public void addCard(Game game, Card card) {
-		game.getCurrentRound().getLastTrick().addCard(card);		
+		game.getCurrentRound().getCurrentTrick().addCard(card);		
+	}
+	
+	public ArrayList<Card> getCards(Player player) {
+		return player.getHand().getCards();
+	}
+	
+	public Hand getHand(Player player) {
+		return player.getHand();
 	}
 
-	@Override
 	public Card getLeadingCard(Trick trick) {
 		return trick.getLeadingCard();
 	}
@@ -181,9 +188,38 @@ public class Facade implements IFacade {
 	public Suit getTrump(Game game) {
 		return this.getCurrentRound(game).getTrump();
 	}
-
-	public ArrayList<Card> getLastTrickCards(Game game) {
-		return game.getCurrentRound().getLastTrick().getCards();
+	
+	public void setTrump(Game game, Suit trump) {
+		game.getCurrentRound().setTrump(trump);
 	}
+
+	public ArrayList<Card> getCurrentTrickCards(Game game) {
+		return game.getCurrentRound().getCurrentTrick().getCards();
+	}
+
+	public void setTrickOwner(Trick trick, Player player) {
+		trick.setOwner(player);
+	}
+
+	public void removeCardByNumber(Player player, int cardNumber) {
+		player.getHand().getCards().remove(cardNumber-1);
+		
+	}
+
+	public void setFirst(Game game, Player owner) {
+		game.setFirst(owner);
+		
+	}
+
+	public void sortCards(Player player) {
+		player.getHand().sortCards();
+	}
+
+	public void addTrick(Player player, Trick trick) {
+		player.addTrick(trick);
+		
+	}
+
+	
 	
 }

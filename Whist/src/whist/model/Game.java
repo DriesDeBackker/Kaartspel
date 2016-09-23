@@ -212,4 +212,27 @@ public class Game {
 		this.rounds.add(round);
 	}
 
+	public void setFirst(Player player) {
+		ArrayList<Player> newList = new ArrayList<Player>();
+		newList.add(player);
+		boolean blabla = false;
+		for (Player iterationPlayer : this.getPlayers()) {
+			if (blabla == true) {
+				newList.add(iterationPlayer);
+			}
+			if (iterationPlayer == player) {
+				blabla = true;
+			}
+		}
+		for (Player iterationPlayer2 : this.getPlayers()) {
+			if (iterationPlayer2 == player) {
+				blabla = false;
+			}
+			if (blabla == true) {
+				newList.add(iterationPlayer2);
+			}
+		}
+	}
+	
 }
+

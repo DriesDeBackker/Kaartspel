@@ -92,6 +92,16 @@ public interface IFacade {
 	
 	Suit getTrump(Game game);
 	
-	Object getLastTrickCards(Game game);
+	void setTrump(Game game, Suit trump);
+	
+	Object getCurrentTrickCards(Game game);
+	
+	Hand getHand(Player player);
+	
+	ArrayList<Card> getCards(Player player);
+	
+	void sortCards(Player player);
+	
+	void addTrick(Player player, Trick trick);
 	
 }

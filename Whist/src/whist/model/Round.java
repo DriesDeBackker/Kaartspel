@@ -52,7 +52,7 @@ public class Round {
 		this.tricks = tricks;
 	}
 	
-	public Trick getLastTrick() {
+	public Trick getCurrentTrick() {
 		return this.getTricks().get(this.getNumberOfTricks() - 1);
 	}
 	

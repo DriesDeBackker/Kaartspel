@@ -64,21 +64,6 @@ public class Player {
 	public Hand getHand() {
 		return this.hand;
 	}
-	
-	public void sortHand() {
-		if(this.hand != null) {
-			/******To do******/
-		}
-	}
-
-	public Card playCard() {
-		/******To do******/
-		return null;
-	}
-
-	public boolean hasTrull() {
-		return (this.getHand().countAces() >= 3);
-	}
 
 	public CardDeck getCardDeck() {
 		return cardDeck;

@@ -80,8 +80,8 @@ public class CardDeck {
 	public void cut (int cardNumber) {
 		assert (1 <= cardNumber && cardNumber <= 52);
 		cardNumber--;
-		ArrayList<Card> firstHalf  = (ArrayList<Card>) this.getCards().subList(0, cardNumber);
-		ArrayList<Card> secondHalf = (ArrayList<Card>) this.getCards().subList(cardNumber+1, 51);
+		ArrayList<Card> firstHalf  = new ArrayList<Card> (this.getCards().subList(0, cardNumber));
+		ArrayList<Card> secondHalf = new ArrayList<Card> (this.getCards().subList(cardNumber+1, 51));
 		ArrayList<Card> cutCards = new ArrayList<Card>();
 		cutCards.addAll(secondHalf);
 		cutCards.addAll(firstHalf);
