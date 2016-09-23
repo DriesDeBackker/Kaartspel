@@ -40,10 +40,6 @@ public class Facade implements IFacade {
 		game.start();
 	}
 	
-	public void startNextRound(Game game) {
-		game.startNexRound();
-	}
-	
 	public void goToReady(Game game) {
 		game.goToReady();
 	}
@@ -151,6 +147,43 @@ public class Facade implements IFacade {
 
 	public void dealCards(Game game, Player player, int amount) {
 		game.getCardDeck().dealCards(amount, player);	
+	}
+
+	public Trick createTrick() {
+		return new Trick();
+	}
+	
+	public void addTrick(Game game, Trick trick) {
+		game.getCurrentRound().addTrick(trick);
+	}
+	
+	public Trick getCurrentTrick(Game game) {
+		return game.getCurrentRound().getLastTrick();
+	}
+	
+	public Round createRound(Game game, int number) {
+		return new Round(game, number);
+	}
+
+	public void addRound(Game game, Round round) {
+		game.addRound(round);
+	}
+
+	public void addCard(Game game, Card card) {
+		game.getCurrentRound().getLastTrick().addCard(card);		
+	}
+
+	@Override
+	public Card getLeadingCard(Trick trick) {
+		return trick.getLeadingCard();
+	}
+
+	public Suit getTrump(Game game) {
+		return this.getCurrentRound(game).getTrump();
+	}
+
+	public ArrayList<Card> getLastTrickCards(Game game) {
+		return game.getCurrentRound().getLastTrick().getCards();
 	}
 	
 }

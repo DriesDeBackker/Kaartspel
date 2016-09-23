@@ -11,7 +11,7 @@ public class Game {
 	private ArrayList<Team> teams;
 	private GameRules gameRules;
 	private CardDeck cardDeck;
-	private Round currentRound;
+	private ArrayList<Round> rounds;
 	
 	public Game (Player host, GameRules gameRules, CardDeck cardDeck) {
 		this.setHost(host);
@@ -19,19 +19,16 @@ public class Game {
 		this.setGameRules(gameRules);
 		this.setCardDeck(cardDeck);
 		this.setIdle();
+		this.setRounds(new ArrayList<Round>());
 	}
 	
 	public void start() {
 		this.setCurrentPlayer(this.getPlayer(1));
-		this.setCurrentRound(new Round(this, 1));
-	}
-	
-	public void startNexRound() {
-		this.setCurrentRound(new Round(this, this.getCurrentRoundNumber() + 1));
 	}
 	
 	public void goToReady() {
 		assert(this.isIdle());
+		this.setReady();
 	}
 	
 	public void startDealing() {
@@ -58,21 +55,13 @@ public class Game {
 	private boolean hasDealer() {
 		return (! this.isIdle() && ! this.isGameOver());
 	}
-
-	private void setCurrentRound(Round round) {
-		this.currentRound = round;
-	}
 	
 	public Round getCurrentRound() {
-		return this.currentRound;
+		return this.getRounds().get(this.getRounds().size()-1);
 	}
 	
 	public int getCurrentRoundNumber() {
-		if (!(this.getCurrentRound() == null)) {
-			return this.getCurrentRound().getRoundNumber();
-		} else {
-			return 0;
-		}
+		return this.getRounds().size();
 	}
 
 	public boolean isIdle() {
@@ -209,6 +198,18 @@ public class Game {
 
 	public void setCardDeck(CardDeck cardDeck) {
 		this.cardDeck = cardDeck;
+	}
+
+	public ArrayList<Round> getRounds() {
+		return rounds;
+	}
+
+	private void setRounds(ArrayList<Round> rounds) {
+		this.rounds = rounds;
+	}
+	
+	public void addRound(Round round) {
+		this.rounds.add(round);
 	}
 
 }

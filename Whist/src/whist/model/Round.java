@@ -7,6 +7,7 @@ public class Round {
 	private Game game;
 	private int roundNumber;
 	private ArrayList<Trick> tricks;
+	private Suit trump;
 	
 	public Round (Game game, int roundNumber) {
 		this.setGame(game);
@@ -39,7 +40,7 @@ public class Round {
 		return this.getGame().getTeams();
 	}
 	
-	public int getTrickNumber() {
+	public int getNumberOfTricks() {
 		return this.getTricks().size();
 	}
 
@@ -51,8 +52,21 @@ public class Round {
 		this.tricks = tricks;
 	}
 	
-	private void addTrick(Trick trick) {
+	public Trick getLastTrick() {
+		return this.getTricks().get(this.getNumberOfTricks() - 1);
+	}
+	
+	public void addTrick(Trick trick) {
+		assert(this.getTricks().size() < 13);
 		this.tricks.add(trick);
+	}
+
+	public Suit getTrump() {
+		return trump;
+	}
+
+	public void setTrump(Suit trump) {
+		this.trump = trump;
 	}
 	
 }

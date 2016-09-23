@@ -16,8 +16,6 @@ public interface IFacade {
 	
 	void startGame(Game game);
 	
-	void startNextRound(Game game);
-	
 	void startScoring(Game game);
 
 	CardDeck createDeck();
@@ -79,5 +77,21 @@ public interface IFacade {
 	int numberOfAvailablePlayers(Game game);
 	
 	boolean allPlayersActive(Game game);
-
+	
+	Trick createTrick();
+	
+	void addTrick(Game game, Trick trick);
+	
+	Trick getCurrentTrick(Game game);
+	
+	Round createRound(Game game, int number);
+	
+	void addRound(Game game, Round round);
+	
+	Card getLeadingCard(Trick trick);
+	
+	Suit getTrump(Game game);
+	
+	Object getLastTrickCards(Game game);
+	
 }
