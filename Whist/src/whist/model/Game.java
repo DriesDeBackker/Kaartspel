@@ -213,25 +213,37 @@ public class Game {
 	}
 
 	public void setFirst(Player player) {
+		//System.out.println("We gaan de spelervolgorde veranderen");
+		//System.out.println("De speler die vooraan komt: " + player.getName());
 		ArrayList<Player> newList = new ArrayList<Player>();
 		newList.add(player);
-		boolean blabla = false;
+		boolean add = false;
+		//System.out.println("De eerste iteratieronde");
 		for (Player iterationPlayer : this.getPlayers()) {
-			if (blabla == true) {
+			//System.out.println("De speler die we overlopen " + iterationPlayer.getName());
+			if (add == true) {
+				//System.out.println("De speler moet toegevoegd worden: " + iterationPlayer.getName());
 				newList.add(iterationPlayer);
 			}
 			if (iterationPlayer == player) {
-				blabla = true;
+				//System.out.println("We zijn de speler tegengekomen die opgegeven is. Alle volgende spelers moeten toegevoegd worden.");
+				add = true;
 			}
 		}
+		//System.out.println("De tweede iteratieronde");
 		for (Player iterationPlayer2 : this.getPlayers()) {
+			//System.out.println("De speler die we overlopen " + iterationPlayer2.getName());
 			if (iterationPlayer2 == player) {
-				blabla = false;
+				//System.out.println("We zijn de speler tegengekomen die opgegeven is. Alle volgende spelers mogen niet toegevoegd worden.");
+				add = false;
 			}
-			if (blabla == true) {
+			if (add == true) {
+				//System.out.println("De speler moet toegevoegd worden: " + iterationPlayer2.getName());
 				newList.add(iterationPlayer2);
 			}
 		}
+		//System.out.println("We vervangen de lijst van spelers door de nieuwe lijst in de nieuwe volgorde."); 
+		this.setPlayers(newList);
 	}
 	
 }
