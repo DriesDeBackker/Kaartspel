@@ -13,15 +13,21 @@ public class CardDeck {
 	}
 	
 	private ArrayList<Card> generateCards() {
+		System.out.println("We gaan kaarten genereren en toevoegen aan de stok");
 		ArrayList<Card> cards = new ArrayList<Card>();
 		for(int suit = 1; suit <= 4; suit++) {
 			for(int rank=1; rank<=13; rank++) {
 				cards.add(new Card(suit,rank));
 			}
 		}
+		System.out.println("Aantal kaarten in stok: " + cards.size());
 		return cards;
 	}
 	
+	public void addCard(Card card) {
+		this.cards.add(card);
+	}
+
 	public void dealCards(int number, Player player) {
 		assert(1 <= number && number <= 52);
 		for(int i=1; i<=number; i++){

@@ -272,5 +272,26 @@ public class Facade implements IFacade {
 	public Player getSecondPlayer(Team team) {
 		return team.getSecondPlayer();
 	}
+
+	public void addCardToDeck(Game game, Card card) {
+		game.getCardDeck().addCard(card);
+		
+	}
+
+	public void clearTricks(Player player) {
+		player.clearTricks();
+	}
+	
+	public void clearTricks(Team team) {
+		team.clearTricks();
+	}
+
+	public ArrayList<Team> getTeams(Game game) {
+		return game.getTeams();
+	}
+
+	public Player getHost(Game game) {
+		return game.getHost();
+	}	
 		
 }

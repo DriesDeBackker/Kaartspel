@@ -71,6 +71,8 @@ public class WhistGUI {
 			this.updateScore();
 			System.out.print("We evalueren de score");
 			this.evaluateScore();
+			System.out.print("We steken de kaarten terug in de boek");
+			this.resetForNewRound();
 		}
 		
 	}
@@ -80,6 +82,7 @@ public class WhistGUI {
 		String playerName = in.nextLine();
 		Player playerOne = facade.createPlayer(playerName, 1);
 		GameRules rules = facade.createGameRules();
+		System.out.println("We gaan een nieuwe stok aanmaken");
 		CardDeck deck = facade.createDeck();
 		facade.shuffleDeck(deck);
 		this.game = facade.createGame(playerOne, rules, deck);
@@ -250,11 +253,28 @@ public class WhistGUI {
 			System.out.println("Team " + facade.getTeamNumber(leadingTeam) + " heeft het spel gewonnen.");
 			System.out.println("Proficiat " + facade.getFirstPlayer(leadingTeam).getName() + " en " + facade.getSecondPlayer(leadingTeam).getName());
 		} else {
-			facade.setFirst(game, facade.getFirstPlayer(game));
+			facade.setFirst(game, facade.getHost(game));
 			int newRoundNumber = facade.getCurrentRoundNumber(game) + 1;
 			Player newFirstPlayer = facade.getPlayers(game).get(newRoundNumber%4 - 1);
 			facade.setFirst(game, newFirstPlayer);
+			facade.setGameIdle(game);
 		}
+	}
+	
+	private void resetForNewRound() {
+		for (Player player : facade.getPlayers(game)) {
+			for (Trick trick : facade.getTricks(player)) {
+				for (Card card : trick.getCards()) {
+					card.setOwner(null);
+					facade.addCardToDeck(game,card);
+				}
+			}
+			facade.clearTricks(player);
+		}
+		for (Team team : facade.getTeams(game)) {
+			facade.clearTricks(team);
+		}
+		
 	}
 
 	private static String stringifyCards(ArrayList<Card> cards) {

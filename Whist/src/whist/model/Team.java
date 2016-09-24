@@ -53,6 +53,10 @@ public class Team {
 	public void addTrick(Trick trick) {
 		this.tricks.add(trick);
 	}
+	
+	public void clearTricks() {
+		this.setTricks(new ArrayList<Trick>());
+	}
 
 	public int getScore() {
 		return score;
