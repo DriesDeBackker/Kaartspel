@@ -10,9 +10,9 @@ public class Trick {
 	private Player owner;
 
 	public Trick () {
+		this.setCards(new ArrayList<Card>());
 		this.setUnplayed();
 		this.setUnturnable();
-		this.setCards(new ArrayList<Card>());
 	}
 
 	public void setUnplayed() {

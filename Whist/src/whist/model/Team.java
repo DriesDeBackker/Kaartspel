@@ -4,21 +4,26 @@ import java.util.ArrayList;
 
 public class Team {
 	
+	private int number;
 	private Player firstPlayer;
 	private Player secondPlayer;
 	private ArrayList<Trick> tricks;
-	private Score score;
+	private int score;
 	
-	public Team(Player firstPlayer, Player secondPlayer, Score score) {
+	public Team(int number, Player firstPlayer, Player secondPlayer, int score) {
+		this.setNumber(number);
 		this.setFirstPlayer(firstPlayer);
 		this.setSecondPlayer(secondPlayer);
 		this.setScore(score);
+		this.setTricks(new ArrayList<Trick>());
 	}
 	
-	public Team(Player firstPlayer, Player secondPlayer) {
+	public Team(int number, Player firstPlayer, Player secondPlayer) {
+		this.setNumber(number);
 		this.setFirstPlayer(firstPlayer);
 		this.setSecondPlayer(secondPlayer);
-		this.setScore(new Score(this));
+		this.setScore(0);
+		this.setTricks(new ArrayList<Trick>());
 	}
 
 	private void setFirstPlayer(Player firstPlayer) {
@@ -36,6 +41,10 @@ public class Team {
 	public Player getSecondPlayer() {
 		return this.secondPlayer;
 	}
+	
+	private void setTricks(ArrayList<Trick> tricks) {
+		this.tricks = tricks;
+	}
 
 	public ArrayList<Trick> getTricks() {
 		return tricks;
@@ -45,16 +54,25 @@ public class Team {
 		this.tricks.add(trick);
 	}
 
-	public Score getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	public void setScore(Score score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
-	
-	public int getCurrentPoints() {
-		return this.score.getLastScoreEntry();
+
+	public void increaseScore(int amount) {
+		assert(amount >= 0);
+		this.setScore(this.getScore() + amount);
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 }

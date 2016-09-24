@@ -42,7 +42,7 @@ public class Game {
 	}
 	
 	public void startScoring() {
-		assert(this.isScoring());
+		assert(this.isPlaying());
 		this.setScoring();
 	}
 	
@@ -113,11 +113,7 @@ public class Game {
 	}
 	
 	public boolean goalReached() {
-		return (this.getFirstTeam().getCurrentPoints() >= this.getGameRules().getMaximumPoints());
-	}
-	
-	private void updateScore() {
-		// TODO Auto-generated method stub
+		return (this.getFirstTeam().getScore() >= this.getGameRules().getMaximumPoints() || this.getSecondTeam().getScore() >= this.getGameRules().getMaximumPoints());
 	}
 
 	public void setGameRules(GameRules gameRules) {
@@ -167,7 +163,7 @@ public class Game {
 	}
 	
 	public Team getSecondTeam() {
-		return this.getTeams().get(0);
+		return this.getTeams().get(1);
 	}
 
 	private void setTeams(ArrayList<Team> teams) {
@@ -177,8 +173,12 @@ public class Game {
 	
 	public void initiateTeams() {
 		assert(this.getPlayers().size() == 4);
-		Team team1 = new Team(this.getPlayer(1), this.getPlayer(3));
-		Team team2 = new Team(this.getPlayer(2), this.getPlayer(4));
+		Team team1 = new Team(1, this.getPlayer(1), this.getPlayer(3));
+		Team team2 = new Team(2, this.getPlayer(2), this.getPlayer(4));
+		this.getPlayer(1).setTeam(team1);
+		this.getPlayer(2).setTeam(team2);
+		this.getPlayer(3).setTeam(team1);
+		this.getPlayer(4).setTeam(team2);
 		ArrayList<Team> teams = new ArrayList<Team>();
 		teams.add(team1); teams.add(team2);
 		this.setTeams(teams);

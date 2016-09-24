@@ -104,4 +104,10 @@ public interface IFacade {
 	
 	void addTrick(Player player, Trick trick);
 	
+	Player getCardOwner(Card card);
+	
+	Team getCardOwnerTeam(Card card);
+	
+	void setCurrentPlayer(Game game, Player player);
+	
 }

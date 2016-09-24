@@ -144,6 +144,26 @@ public class Facade implements IFacade {
 	public int numberOfAvailablePlayers(Game game) {
 		return game.getPlayers().size();
 	}
+	
+	public void createTeams(Game game) {
+		game.initiateTeams();
+	}
+	
+	public Team getFirstTeam(Game game) {
+		return game.getFirstTeam();
+	}
+	
+	public Team getSecondTeam(Game game) {
+		return game.getSecondTeam();
+	}
+	
+	public int getScore(Team team) {
+		return team.getScore();
+	}
+	
+	public int getTeamNumber(Team team) {
+		return team.getNumber();
+	}
 
 	public void dealCards(Game game, Player player, int amount) {
 		game.getCardDeck().dealCards(amount, player);	
@@ -155,6 +175,22 @@ public class Facade implements IFacade {
 	
 	public void addTrick(Game game, Trick trick) {
 		game.getCurrentRound().addTrick(trick);
+	}
+	
+	public void addTrick(Player player, Trick trick) {
+		player.addTrick(trick);
+	}
+	
+	public ArrayList<Trick> getTricks(Player player) {
+		return player.getTricks();
+	}
+	
+	public void addTrick(Team team, Trick trick) {
+		team.addTrick(trick);
+	}
+	
+	public ArrayList<Trick> getTricks(Team team) {
+		return team.getTricks();
 	}
 	
 	public Trick getCurrentTrick(Game game) {
@@ -203,23 +239,38 @@ public class Facade implements IFacade {
 
 	public void removeCardByNumber(Player player, int cardNumber) {
 		player.getHand().getCards().remove(cardNumber-1);
-		
 	}
 
 	public void setFirst(Game game, Player owner) {
 		game.setFirst(owner);
-		
 	}
 
 	public void sortCards(Player player) {
 		player.getHand().sortCards();
 	}
 
-	public void addTrick(Player player, Trick trick) {
-		player.addTrick(trick);
-		
+	public void setCurrentPlayer(Game game, Player player) {
+		game.setCurrentPlayer(player);
+	}
+	
+	public Player getCardOwner(Card card) {
+		return card.getOwner();
+	}
+	
+	public Team getCardOwnerTeam(Card card) {
+		return card.getOwner().getTeam();
 	}
 
+	public void increaseScoreOfBy(Team team, int amount) {
+		team.increaseScore(amount);
+	}
+
+	public Player getFirstPlayer(Team team) {
+		return team.getFirstPlayer();
+	}
 	
-	
+	public Player getSecondPlayer(Team team) {
+		return team.getSecondPlayer();
+	}
+		
 }

@@ -11,6 +11,7 @@ public class Player {
 	private CardDeck cardDeck;
 	private ArrayList<Trick> tricks;
 	private boolean active;
+	private Team team;
 
 	public Player (String name, int number, Game game) {
 		this.setName(name);
@@ -107,6 +108,14 @@ public class Player {
 	
 	public void setNonActive() {
 		this.active = false;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 }

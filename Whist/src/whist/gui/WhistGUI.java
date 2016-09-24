@@ -10,6 +10,7 @@ import whist.model.GameRules;
 import whist.model.Player;
 import whist.model.Round;
 import whist.model.Suit;
+import whist.model.Team;
 import whist.model.Trick;
 
 public class WhistGUI {
@@ -32,6 +33,7 @@ public class WhistGUI {
 		this.createGame();
 		this.chooseRules();
 		this.addOtherPlayers();
+		facade.createTeams(game);
 		facade.startGame(game);
 		this.play();
 	}
@@ -67,8 +69,8 @@ public class WhistGUI {
 			facade.startScoring(game);
 			System.out.println("We passen de score aan.");
 			this.updateScore();
-			System.out.print("We zetten het spel op game-over voor testredenen.");
-			facade.setGameOver(game);
+			System.out.print("We evalueren de score");
+			this.evaluateScore();
 		}
 		
 	}
@@ -135,14 +137,11 @@ public class WhistGUI {
 		facade.setGameRules(game, newGameRules);
 	}
 
-	private void updateScore() {
-		System.out.println("de score bijwerken");
-	}
-
 	private void playTrick() {
 		facade.addTrick(game, facade.createTrick());
 		System.out.println("Slag spelen");
 		for (Player player : facade.getPlayers(game)) {
+			facade.setCurrentPlayer(game,player);
 			System.out.println("Dit is de slag tot nu toe:");
 			System.out.println(stringifyCards(facade.getCurrentRound(game).getCurrentTrick().getCards()));
 			System.out.print(player.getName() + ", Dit zijn je kaarten: " + newLine);
@@ -163,17 +162,18 @@ public class WhistGUI {
 		for (Card card : facade.getCurrentTrickCards(game)){
 			if(card.getSuit() == winningCard.getSuit() && card.getRank().getValue() > winningCard.getRank().getValue()) {
 				winningCard = card;
-			} else if (card.getSuit() == trump && winningCard.getSuit() == leadingSuit) {
+			} else if (card.getSuit() == trump && winningCard.getSuit() == leadingSuit && leadingSuit != trump) {
 				winningCard = card;
 			}
 		}
 		facade.setTrickOwner(facade.getCurrentTrick(game), winningCard.getOwner());
-		facade.addTrick(winningCard.getOwner(), facade.getCurrentTrick(game));
+		facade.addTrick(facade.getCardOwner(winningCard), facade.getCurrentTrick(game));
+		facade.addTrick(facade.getCardOwnerTeam(winningCard), facade.getCurrentTrick(game));
 		System.out.println("De slag gaat naar " + winningCard.getOwner().getName());
 		facade.setFirst(game, winningCard.getOwner());
 		ArrayList<Player> playersInNewOrder = facade.getPlayers(game);
 		System.out.println("De nieuwe speelvolgorde: " + playersInNewOrder.get(0).getName() + " " + playersInNewOrder.get(1).getName() + " " + playersInNewOrder.get(2).getName() + " " + playersInNewOrder.get(3).getName());
-		System.out.println("Deze speler komt de volgende slag uit: " + facade.getPlayers(game).get(0));
+		System.out.println("Deze speler komt de volgende slag uit: " + facade.getPlayers(game).get(0).getName());
 	}
 
 	private void dealCards() {
@@ -212,6 +212,48 @@ public class WhistGUI {
 		facade.setTrump(game, lastCardDealt.getSuit());
 		for (Player player: players) {
 			facade.sortCards(player);
+		}
+	}
+	
+	private void updateScore() {
+		System.out.println("de score bijwerken");
+		int firstTeamNumberOfTricks  = facade.getTricks(facade.getFirstTeam(game)).size();
+		System.out.println("Team " + facade.getTeamNumber(facade.getFirstTeam(game)) + " behaalde " + firstTeamNumberOfTricks + " slagen.");
+		int secondTeamNumberOfTricks = facade.getTricks(facade.getSecondTeam(game)).size();
+		System.out.println("Team " + facade.getTeamNumber(facade.getSecondTeam(game)) + " behaalde " + secondTeamNumberOfTricks + " slagen.");
+		int totalTricks = firstTeamNumberOfTricks + secondTeamNumberOfTricks;
+		System.out.println(totalTricks);
+		assert (totalTricks == 13);
+		Team winningTeam = facade.getFirstTeam(game);
+		if (firstTeamNumberOfTricks < secondTeamNumberOfTricks) {
+			winningTeam = facade.getSecondTeam(game);
+		}
+		System.out.println("Team " + facade.getTeamNumber(winningTeam) + " heeft deze ronde gewonnen.");
+		int winningAmount = Math.max(firstTeamNumberOfTricks, secondTeamNumberOfTricks);
+		System.out.println("Ze behaalden " + winningAmount + " slagen.");
+		int scoreIncrease = (winningAmount - 6)*facade.getGameRules(game).getExtraTrickPoints();
+		System.out.println("Ze krijgen hiervoor " + scoreIncrease  + " punten.");
+		facade.increaseScoreOfBy(winningTeam, scoreIncrease);
+		System.out.println("De score van team 1 is nu: " + facade.getScore(facade.getFirstTeam(game)));
+		System.out.println("De score van team 2 is nu: " + facade.getScore(facade.getSecondTeam(game)));
+	}
+	
+	private void evaluateScore() {
+		int score1 = facade.getScore(facade.getFirstTeam(game));
+		int score2 = facade.getScore(facade.getSecondTeam(game));
+		Team leadingTeam = facade.getFirstTeam(game);
+		if (score2 > score1) {
+			leadingTeam = facade.getSecondTeam(game);
+		}
+		if (facade.getScore(leadingTeam) >= facade.getGameRules(game).getMaximumPoints()) {
+			facade.setGameOver(game);
+			System.out.println("Team " + facade.getTeamNumber(leadingTeam) + " heeft het spel gewonnen.");
+			System.out.println("Proficiat " + facade.getFirstPlayer(leadingTeam).getName() + " en " + facade.getSecondPlayer(leadingTeam).getName());
+		} else {
+			facade.setFirst(game, facade.getFirstPlayer(game));
+			int newRoundNumber = facade.getCurrentRoundNumber(game) + 1;
+			Player newFirstPlayer = facade.getPlayers(game).get(newRoundNumber%4 - 1);
+			facade.setFirst(game, newFirstPlayer);
 		}
 	}
 
