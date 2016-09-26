@@ -10,25 +10,23 @@ public interface IFacade {
 	
 	Player createHost(String name, int number);
 	
+	Player getHost(Game game);
+	
+	Player createPlayer(String name, int number);
+	
 	GameRules createGameRules();
 	
-	Game createGame(Player host, GameRules rules, CardDeck deck);
-	
-	void startGame(Game game);
-	
-	void startScoring(Game game);
-
 	CardDeck createDeck();
 	
 	void shuffleDeck(CardDeck deck);
 	
 	void cutDeck(CardDeck deck, int number);
 	
-	void dealCards(Game game, Player player, int amount) ;
-	
-	Player createPlayer(String name, int number);
+	Game createGame(Player host, GameRules rules, CardDeck deck);
 	
 	void addPlayer(Game game, Player player);
+	
+	void startGame(Game game);
 	
 	boolean isGameIdle(Game game);
 	
@@ -49,6 +47,10 @@ public interface IFacade {
 	boolean isGameOver(Game game);
 	
 	void setGameOver(Game game);
+	
+	void startScoring(Game game);
+	
+	void dealCards(Game game, Player player, int amount) ;
 	
 	Round getCurrentRound(Game game);
 	
@@ -75,6 +77,18 @@ public interface IFacade {
 	boolean allPlayersPresent(Game game);
 	
 	int numberOfAvailablePlayers(Game game);
+	
+	void createTeams(Game game);
+	
+	ArrayList<Team> getTeams(Game game);
+	
+	Team getFirstTeam(Game game);
+	
+	Team getSecondTeam(Game game);
+	
+	int getTeamNumber(Team team);
+	
+	public int getScore(Team team);
 	
 	boolean allPlayersActive(Game game);
 	
@@ -110,4 +124,16 @@ public interface IFacade {
 	
 	void setCurrentPlayer(Game game, Player player);
 	
+	void increaseScoreOfBy(Team team, int amount);
+
+	Player getFirstPlayer(Team team);
+	
+	Player getSecondPlayer(Team team);
+	
+	void addCardToDeck(Game game, Card card);
+	
+	void clearTricks(Player player);
+	
+	void clearTricks(Team team);
+		
 }

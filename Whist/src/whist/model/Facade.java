@@ -8,6 +8,10 @@ public class Facade implements IFacade {
 		return new Player(name, number);
 	}
 	
+	public Player getHost(Game game) {
+		return game.getHost();
+	}	
+	
 	public Player createPlayer(String name, int number) {
 		return new Player(name, number);
 	}
@@ -40,14 +44,6 @@ public class Facade implements IFacade {
 		game.start();
 	}
 	
-	public void goToReady(Game game) {
-		game.goToReady();
-	}
-	
-	public void startScoring(Game game) {
-		game.startScoring();
-	}
-	
 	public boolean isGameIdle(Game game) {
 		return game.isIdle();
 	}
@@ -59,9 +55,9 @@ public class Facade implements IFacade {
 	public boolean isGameReady(Game game) {
 		return game.isReady();
 	}
-
-	public void setGameReady(Game game) {
-		game.setReady();
+	
+	public void goToReady(Game game) {
+		game.goToReady();
 	}
 
 	public boolean isDealing(Game game) {
@@ -78,6 +74,10 @@ public class Facade implements IFacade {
 
 	public void startPlaying(Game game) {
 		game.startPlaying();
+	}
+	
+	public void startScoring(Game game) {
+		game.startScoring();
 	}
 
 	public boolean isGameOver(Game game) {
@@ -149,6 +149,10 @@ public class Facade implements IFacade {
 		game.initiateTeams();
 	}
 	
+	public ArrayList<Team> getTeams(Game game) {
+		return game.getTeams();
+	}
+	
 	public Team getFirstTeam(Game game) {
 		return game.getFirstTeam();
 	}
@@ -157,12 +161,12 @@ public class Facade implements IFacade {
 		return game.getSecondTeam();
 	}
 	
-	public int getScore(Team team) {
-		return team.getScore();
-	}
-	
 	public int getTeamNumber(Team team) {
 		return team.getNumber();
+	}
+	
+	public int getScore(Team team) {
+		return team.getScore();
 	}
 
 	public void dealCards(Game game, Player player, int amount) {
@@ -275,7 +279,6 @@ public class Facade implements IFacade {
 
 	public void addCardToDeck(Game game, Card card) {
 		game.getCardDeck().addCard(card);
-		
 	}
 
 	public void clearTricks(Player player) {
@@ -285,13 +288,5 @@ public class Facade implements IFacade {
 	public void clearTricks(Team team) {
 		team.clearTricks();
 	}
-
-	public ArrayList<Team> getTeams(Game game) {
-		return game.getTeams();
-	}
-
-	public Player getHost(Game game) {
-		return game.getHost();
-	}	
 		
 }
