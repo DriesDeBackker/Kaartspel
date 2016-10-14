@@ -15,6 +15,46 @@ public class Round {
 		this.setTricks(new ArrayList<Trick>());
 	}
 	
+	public ArrayList<Card> getCardsPlayed() {
+		ArrayList<Card> playedCards = new ArrayList<Card>();
+		for (Trick trick : this.getTricks()) {
+			for (Card card : trick.getCards()) {
+				playedCards.add(card);
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Card> getCardsPlayedBy(Player player) {
+		ArrayList<Card> playedCards = new ArrayList<Card>();
+		for (Card card : this.getCardsPlayed()) {
+			if (card.getOwner() == player) {
+				playedCards.add(card);
+			}
+		}
+		return playedCards;
+	}
+	
+	public ArrayList<Card> getCardsPlayedOfSuit(Suit suit) {
+		ArrayList<Card> playedCards = new ArrayList<Card>();
+		for (Card card : this.getCardsPlayed()) {
+			if (card.getSuit() == suit) {
+				playedCards.add(card);
+			}
+		}
+		return playedCards;
+	}
+	
+	public ArrayList<Card> getCardsPlayedOfRank(Rank rank) {
+		ArrayList<Card> playedCards = new ArrayList<Card>();
+		for (Card card : this.getCardsPlayed()) {
+			if (card.getRank() == rank) {
+				playedCards.add(card);
+			}
+		}
+		return playedCards;
+	}
+	
 	private void setGame(Game game) {
 		this.game = game;
 	}

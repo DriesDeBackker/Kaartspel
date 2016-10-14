@@ -60,7 +60,15 @@ public class Trick {
 	
 	public Card getLeadingCard() {
 		return this.getCard(1);
-	}	
+	}
+	
+	public Suit getLeadingSuit() {
+		if (this.getLeadingCard() == null) {
+			return null;
+		} else {
+			return this.getLeadingCard().getSuit();
+		}
+	}
 	
 	public Card getCard(int number) {
 		assert(this.getNumberOfCards() >= number);
