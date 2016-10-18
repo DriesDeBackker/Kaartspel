@@ -109,4 +109,17 @@ public class Round {
 		this.trump = trump;
 	}
 	
+	public Card getWinningCardOfCurrentTrick() {
+		return this.getWinningCardOfTrickNumber(this.getNumberOfTricks());
+	}
+	
+	public Card getWinningCardOfTrickNumber(int trickNumber) {
+		assert(trickNumber <= this.getNumberOfTricks());
+		return this.getWinningCardOfTrick(this.getTricks().get(trickNumber-1));
+	}
+	
+	public Card getWinningCardOfTrick(Trick trick) {
+		return trick.getWinningCard(this.getTrump());
+	}
+	
 }

@@ -27,6 +27,11 @@ public class CardDeck {
 	public void addCard(Card card) {
 		this.cards.add(card);
 	}
+	
+	public void removeCard(Card card) {
+		assert this.cards.contains(card);
+		this.cards.remove(card);
+	}
 
 	public void dealCards(int number, Player player) {
 		assert(1 <= number && number <= 52);
@@ -60,7 +65,7 @@ public class CardDeck {
 		return this.getCards().get(number-1);
 	}
 	
-	public Card getCardBysuitAndRank(int rank, int suit) {
+	public Card getCardBySuitAndRank(int rank, int suit) {
 		Card cloneCard = new Card(suit, rank);
 		Card soughtCard = null;
 		for (Card card: this.getCards()) {

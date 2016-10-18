@@ -14,6 +14,21 @@ public class Trick {
 		this.setUnplayed();
 		this.setUnturnable();
 	}
+	
+	public Card getWinningCard(Suit trump) {
+		assert (this.getNumberOfCards() > 0);
+		Card leadingCard = this.getLeadingCard();
+		Suit leadingSuit = leadingCard.getSuit();
+		Card winningCard = leadingCard;
+		for (Card card : this.getCards()) {
+			if(card.getSuit() == winningCard.getSuit() && card.getRank().getValue() > winningCard.getRank().getValue()) {
+				winningCard = card;
+			} else if (card.getSuit() == trump && winningCard.getSuit() == leadingSuit && leadingSuit != trump) {
+				winningCard = card;
+			}
+		}
+		return winningCard;
+	}
 
 	public void setUnplayed() {
 		assert(this.getNumberOfCards() == 0);

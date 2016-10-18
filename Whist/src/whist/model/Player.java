@@ -26,6 +26,7 @@ public class Player {
 	}
 	
 	public Player (String name, int number) {
+		this.setGame(null);
 		this.setName(name);
 		this.setNumber(number);
 		this.setCardDeck(null);
@@ -38,23 +39,16 @@ public class Player {
 		assert(this.getGame().isPlaying());
 		Round round = this.getGame().getCurrentRound();
 		ArrayList<Card> options = new ArrayList<Card>();
-		ArrayList<Card> trumpCards = new ArrayList<Card>();
 		ArrayList<Card> leadingSuitCards = new ArrayList<Card>();
-		ArrayList<Card> otherCards = new ArrayList<Card>();
+		ArrayList<Card> allCards = this.getHand().getCards();
 		for (Card card : this.getHand().getCards()) {
-			if (card.getSuit() == round.getTrump()) {
-				trumpCards.add(card);
-			} else if (card.getSuit() == round.getCurrentTrick().getLeadingSuit()) {
+			if (card.getSuit() == round.getCurrentTrick().getLeadingSuit()) {
 				leadingSuitCards.add(card);
-			} else {
-				otherCards.add(card);
 			}
 		}
-		//Voeg sowieso alle troefkaarten toe. Deze zijn altijd speelbaar.
-		options.addAll(trumpCards);
-		//Als de speler niet kan volgen, voeg je de andere kaarten toe.
+		//Als de speler niet kan volgen, voeg dan alle kaarten toe.
 		if (leadingSuitCards.size() == 0) {
-			options.addAll(otherCards);
+			options.addAll(allCards);
 		} 
 		//Als de speler wel kan volgen, voeg dan de kaarten van de kleur van de uitgekomen kaart toe.
 		else {
@@ -63,10 +57,12 @@ public class Player {
 		return options;
 	}
 	
+	/*
 	public ArrayList<Card> sortOptions(ArrayList<Card> options) {
 		return null;
-	}
+	}*/
 	
+	/*
 	public int winChance(Card card) {
 		Trick currentTrick = this.getGame().getCurrentRound().getCurrentTrick();
 		if (currentTrick.getCards().size() == 0) {
@@ -84,7 +80,7 @@ public class Player {
 			
 		}
 		return 100;
-	}
+	}*/
 	
 	private void setName(String name) {
 		this.name = name;
